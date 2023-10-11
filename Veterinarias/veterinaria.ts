@@ -17,6 +17,10 @@ export class EntidadVeterinaria {
   return this.direccion;
   }
 
+  public getTelefono(): number {
+    return this.telefono;
+  }
+
   public setNombre(nuevoNombre: string): void {
     this.nombre = nuevoNombre;
   }
@@ -24,8 +28,16 @@ export class EntidadVeterinaria {
   public setDireccion(nuevaDireccion: string): void {
     this.direccion = nuevaDireccion;
   }
+
+  public setTelefono(nuevoTelefono: number): void {
+    this.telefono = nuevoTelefono;
+  }
+
   public mostrarInformacion(): void {
-    console.log(`Nombre: ${this.nombre}, Dirección: ${this.direccion}`);
+    console.log(`
+    Nombre: ${this.nombre}
+    Dirección: ${this.direccion} 
+    Telefono: ${this.telefono}
+    `);
   }
   }
-//1 2 3 probando rama....
