@@ -3,8 +3,9 @@ export class EntidadVeterinaria {
   private nombre:string;
   private telefono:number;
   public constructor(nombre:string,direccion:string, telefono:number) {
-      this.direccion;
-      this.nombre
+      this.nombre = nombre;
+      this.direccion = direccion;
+      this.telefono = telefono;
     }
     
   public getNombre(): string {
