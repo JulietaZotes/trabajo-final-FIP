@@ -28,5 +28,4 @@ export class EntidadVeterinaria {
     console.log(`Nombre: ${this.nombre}, Dirección: ${this.direccion}`);
   }
   }
-  
-  
+//1 2 3 probando rama...
