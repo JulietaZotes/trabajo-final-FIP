@@ -39,4 +39,4 @@ export class EntidadVeterinaria {
     Telefono: ${this.telefono}
     `);
   }
-  }
+}
