@@ -12,7 +12,6 @@ export class EntidadVeterinaria {
     return this.nombre;
   }
 
-
   public getDireccion(): string {
   return this.direccion;
   }
