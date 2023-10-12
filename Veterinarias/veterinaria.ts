@@ -7,7 +7,7 @@ export class EntidadVeterinaria {
       this.direccion = direccion;
       this.telefono = telefono;
     }
-    
+
   public getNombre(): string {
     return this.nombre;
   }
