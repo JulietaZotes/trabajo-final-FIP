@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-import { EntidadVeterinaria } from "./veterinaria";
-class Proveedor extends EntidadVeterinaria {
-    constructor(public telefono: string, nombre: string, direccion: string) {
-      super(nombre, direccion);
-    }
-=======
 import { randomUUID as uid } from "node:crypto";
 
-class Proveedor  {
+export class Proveedor  {
   private NombreProv : string ;
   private TelefonoProv : number ;
   private IdProv : string = uid();
@@ -36,5 +29,4 @@ class Proveedor  {
     return this.IdProv ;
   }
 
->>>>>>> 248b5b8a8dea4504b2481b6ad6b57bd9da9286ba
   }
