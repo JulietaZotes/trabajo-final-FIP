@@ -25,4 +25,8 @@ class Proveedor  {
     return this.TelefonoProv ;
   }
 
+  getIdProv () {
+    return this.IdProv ;
+  }
+
   }
