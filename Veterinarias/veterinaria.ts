@@ -1,11 +1,23 @@
+import { Especies } from "./especies";
+import { Perros } from "./perros";
+import { Gatos } from "./gatos";
+import { Exoticos } from "./exoticos";
+
 export class EntidadVeterinaria {
   private direccion:string;
   private nombre:string;
   private telefono:number;
+  private perros: Perros[];
+  private gatos: Gatos[];
+  private exoticos: Exoticos[];
   public constructor(nombre:string,direccion:string, telefono:number) {
       this.nombre = nombre;
       this.direccion = direccion;
       this.telefono = telefono;
+      this.perros = [];
+        this.gatos = [];
+        this.exoticos = [];
+    };
     }
 
   public getNombre(): string {
