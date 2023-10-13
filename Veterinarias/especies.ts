@@ -5,9 +5,9 @@ import { Exoticos } from "./exoticos";
 export class Especies {
     private raza: string;
     private sexo: string;
-    private edad: number;
+    private edad: string;
 
-    constructor(raza: string, sexo: string, edad: number){
+    constructor(raza: string, sexo: string, edad: string){
         this.raza = raza;
         this.sexo = sexo;
         this.edad = edad;
@@ -19,7 +19,7 @@ export class Especies {
     public setSexo(sexo: string){
         this.sexo = sexo;
     }
-    public setEdad(edad: number){
+    public setEdad(edad: string){
         this.edad = edad;
     }
     public getRaza(){
@@ -33,3 +33,4 @@ export class Especies {
     }
     
 }
+

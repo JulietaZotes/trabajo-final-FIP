@@ -7,19 +7,18 @@ export class Veterinaria {
   private direccion:string;
   private nombre:string;
   private telefono:number;
-  private perros: Perros[];
-  private gatos: Gatos[];
-  private exoticos: Exoticos[];
+  private especies: Especies[];
   public constructor(nombre:string,direccion:string, telefono:number) {
       this.nombre = nombre;
       this.direccion = direccion;
       this.telefono = telefono;
-      this.perros = [];
-        this.gatos = [];
-        this.exoticos = [];
+      this.especies = [];
     };
     
-
+  public addPaciente(paciente: Especies){
+    this.especies.push(paciente);
+    console.log(this.especies);
+  }
   public getNombre(): string {
     return this.nombre;
   }
@@ -52,3 +51,9 @@ export class Veterinaria {
     `);
   }
 }
+
+const vete01 = new Veterinaria("vete 1", "av123", 1223444);
+const perro01 = new Perros("golden", "macho", "3 meses");
+const exotico01 = new Exoticos("piton", "macho", "10 años", "vibora")
+vete01.addPaciente(perro01);
+vete01.addPaciente(exotico01);
