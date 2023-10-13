@@ -1,18 +1,12 @@
 import { randomUUID as uid } from "node:crypto";
-import { Especies } from "./especies";
-
 
 export class Paciente {
-  private id: string;
-  private nombre: string;
-  private especie: Especies[];
-  private idPropietario: string;
-  private pacientes = [];
-
-  public constructor (nombre: string, especie: Especies[]){
-    this.nombre = nombre;
-    this.especie = especie;
-  }
+  private pacientes: {
+    id: string; 
+    nombre: string;
+    especie: string;
+    idPropietario: number;
+  }[] = [];
 
   //DA DE ALTA UN PACIENTE CON EL ID DEL DUENO
   public altaPaciente(nombre: string, especie: string, idPropietario: number): void {
@@ -22,7 +16,7 @@ export class Paciente {
     }
 
     const nuevoPaciente = {
-      id: uid(),
+      id: uid(), 
       nombre,
       especie,
       idPropietario,

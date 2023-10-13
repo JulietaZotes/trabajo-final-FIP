@@ -15,10 +15,11 @@ export class Veterinaria {
       this.direccion = direccion;
       this.telefono = telefono;
       this.perros = [];
-      this.gatos = [];
-      this.exoticos = [];
+        this.gatos = [];
+        this.exoticos = [];
     };
     
+
   public getNombre(): string {
     return this.nombre;
   }
@@ -51,4 +52,3 @@ export class Veterinaria {
     `);
   }
 }
-
