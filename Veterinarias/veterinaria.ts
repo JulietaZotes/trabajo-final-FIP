@@ -3,7 +3,7 @@ import { Perros } from "./perros";
 import { Gatos } from "./gatos";
 import { Exoticos } from "./exoticos";
 
-export class EntidadVeterinaria {
+export class Veterinaria {
   private direccion:string;
   private nombre:string;
   private telefono:number;
@@ -15,11 +15,10 @@ export class EntidadVeterinaria {
       this.direccion = direccion;
       this.telefono = telefono;
       this.perros = [];
-        this.gatos = [];
-        this.exoticos = [];
+      this.gatos = [];
+      this.exoticos = [];
     };
-    }
-
+    
   public getNombre(): string {
     return this.nombre;
   }
@@ -52,3 +51,4 @@ export class EntidadVeterinaria {
     `);
   }
 }
+
