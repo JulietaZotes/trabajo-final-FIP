@@ -1,0 +1,10 @@
+[
+  {
+    "IdCliente": "cbe1c7ed-86af-45f8-9462-025d130362f5",
+    "clientes": [],
+    "NombreCliente": "Ana Rodriguez",
+    "TelCliente": 123456,
+    "EsVIP": false,
+    "Visitas": 0
+  }
+]
