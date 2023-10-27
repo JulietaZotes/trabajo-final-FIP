@@ -6,6 +6,7 @@ import * as rls from "readline-sync";
 import { Cliente } from "./cliente";
 import { fileManager } from "./fileManager";
 import { log } from "console";
+import { Proveedor } from "./proveedor";
 
 export class Veterinaria {
   private direccion:string;
@@ -13,17 +14,20 @@ export class Veterinaria {
   private telefono:number;
   private especies: Especies[];
   private clientes: Cliente[];
+  private proveedores: Proveedor[];
   public constructor(nombre:string,direccion:string, telefono:number) {
       this.nombre = nombre;
       this.direccion = direccion;
       this.telefono = telefono;
       this.especies = [];
       this.clientes = [];
+      this.proveedores = [];
     };
     
   public addPaciente(paciente: Especies){
     this.especies.push(paciente);
-    console.log(this.especies);
+    fileManager.readPacientes();
+    fileManager.appendPacientes(this.especies);
   }
   public getNombre(): string {
     return this.nombre;
@@ -64,6 +68,13 @@ export class Veterinaria {
     fileManager.appendClientes(this.clientes);
   }
 
+  public addProv(newProv: Proveedor){
+    this.proveedores.push(newProv);
+    fileManager.readClientes();
+    fileManager.appendProveedores(this.proveedores);
+  }
+
+
   //async es una palabra clave que se utiliza para declarar una función asincrónica. Una función asincrónica es una función que realiza operaciones asincrónicas, como operaciones de lectura/escritura de archivos.
   public showClientes(){
     const readResult = fileManager.readClientes(); //
@@ -87,11 +98,13 @@ export class Veterinaria {
 }
 
 const vete01 = new Veterinaria("vete 1", "av123", 1223444);
-// const perro01 = new Perros("golden", "macho", "3 meses");
-// const exotico01 = new Exoticos("piton", "macho", "10 años", "vibora")
-// vete01.addPaciente(perro01);
-// vete01.addPaciente(exotico01);
-
 const cliente01 = new Cliente("Ana Rodriguez", 123456);
 vete01.addCliente(cliente01);
-vete01.showClientes();
+const perro01 = new Perros("golden", "macho", "3 meses", cliente01);
+//const exotico01 = new Exoticos("piton", "macho", "10 años", "vibora")
+vete01.addPaciente(perro01);
+//vete01.addPaciente(exotico01);
+
+// vete01.showClientes();
+// const prov01 = new Proveedor("proveedor kongo", 2345433);
+// vete01.addProv(prov01);
