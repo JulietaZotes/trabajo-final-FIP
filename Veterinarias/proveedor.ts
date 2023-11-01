@@ -4,6 +4,7 @@ export class Proveedor  {
   private NombreProv : string ;
   private TelefonoProv : number ;
   private IdProv : string = uid();
+  proveedores = [];
 
   constructor(NombreProv: string, TelefonoProv: number) {
     this.NombreProv = NombreProv ;
