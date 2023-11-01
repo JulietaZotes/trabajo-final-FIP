@@ -1,9 +1,9 @@
-import { Perros } from "./perros";
-import { Gatos } from "./gatos";
-import { Exoticos } from "./exoticos";
+import { Cliente } from "./cliente";
+import * as fs from "node:fs";
 
 import * as fs from 'fs';
 export class Especies {
+<<<<<<< HEAD
   private raza: string;
   private sexo: string;
   private edad: string;
@@ -32,6 +32,50 @@ export class Especies {
   public getEdad() {
     return this.edad;
   }
+=======
+    private raza: string;
+    private sexo: string;
+    private edad: string;
+    private duenio: Cliente;
+    pacientes = [];
+
+    constructor(raza: string, sexo: string, edad: string, duenio: Cliente){
+        this.raza = raza;
+        this.sexo = sexo;
+        this.edad = edad;
+        this.duenio = duenio;
+    }
+        
+    public setRaza(raza: string){
+        this.raza = raza;
+    }
+    public setSexo(sexo: string){
+        this.sexo = sexo;
+    }
+    public setEdad(edad: string){
+        this.edad = edad;
+    }
+    public getRaza(){
+        return this.raza;
+    }
+    public getSexo(){
+        return this.sexo;
+    }
+    public getEdad(){
+        return this.edad;
+    }
+    
+    private writeToEspeciesFile(id: string) {
+        fs.appendFile('pacientes.txt', id + '\n', (err) => {
+            if (err) {
+                console.error('Error al escribir en el archivo especies.txt');
+            } else {
+                console.log('ID del cliente escrito en especies.txt');
+            }
+        });
+    }
+
+>>>>>>> 2e5ded4689c97b8411b03dc9b568cae0d8f4fe69
 }
 
 // Función para leer datos desde el archivo
