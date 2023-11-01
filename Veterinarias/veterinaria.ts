@@ -61,12 +61,22 @@ export class Veterinaria {
     `);
   }
 
-  public addCliente(newCliente: Cliente){
+  public agregarCliente(newCliente: Cliente){
 
     this.clientes.push(newCliente);
     fileManager.readClientes();
     fileManager.appendClientes(this.clientes);
   }
+  public eliminarCliente (id: string): void {
+    const indiceCliente = this.clientes.findIndex(nombreCliente => nombreCliente.Getid() === id);
+    if (indiceCliente !== -1) {
+      this.clientes.splice(indiceCliente, 1);
+      console.log(`Cliente con ID ${id} eliminado con éxito.`);
+    } else {
+      console.log(`Cliente con ID ${id} no encontrado.`);
+    }
+  }
+  
 
   public addProv(newProv: Proveedor){
     this.proveedores.push(newProv);
@@ -99,7 +109,7 @@ export class Veterinaria {
 
 const vete01 = new Veterinaria("vete 1", "av123", 1223444);
 const cliente01 = new Cliente("Ana Rodriguez", 123456);
-vete01.addCliente(cliente01);
+vete01.agregarCliente(cliente01);
 const perro01 = new Perros("golden", "macho", "3 meses", cliente01);
 //const exotico01 = new Exoticos("piton", "macho", "10 años", "vibora")
 vete01.addPaciente(perro01);
