@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { log } from "node:console";
->>>>>>> 2e5ded4689c97b8411b03dc9b568cae0d8f4fe69
 import { randomUUID as uid } from "node:crypto";
 
 
@@ -16,11 +13,8 @@ export class Cliente {
 public constructor(NombreCliente : string , TelCliente : number ){
   this.NombreCliente = NombreCliente ;
   this.TelCliente = TelCliente ;
-<<<<<<< HEAD
-=======
   this.EsVIP = false;
   this.Visitas = 0
->>>>>>> 2e5ded4689c97b8411b03dc9b568cae0d8f4fe69
 
 }
 public Getid(){
@@ -42,8 +36,6 @@ public SetTelefonoCliente (TelCliente : number){
 
 public GetTelefonoCliente () {
   return this.TelCliente;
-<<<<<<< HEAD
-=======
 }
 
 public isVIP(){
@@ -52,17 +44,10 @@ public isVIP(){
   } else {
     return ("No");
   }
->>>>>>> 2e5ded4689c97b8411b03dc9b568cae0d8f4fe69
 }
 
 }  
 
-<<<<<<< HEAD
-
-}  
-
-=======
->>>>>>> 2e5ded4689c97b8411b03dc9b568cae0d8f4fe69
 ///comentario
 
 
