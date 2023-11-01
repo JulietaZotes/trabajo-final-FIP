@@ -1,5 +1,9 @@
 import { Cliente } from "./cliente";
 import * as fs from "node:fs";
+<<<<<<< HEAD
+=======
+
+>>>>>>> da31cdb14bf86182b2a6bcc14f040c6d8700d057
 export class Especies {
     private raza: string;
     private sexo: string;
