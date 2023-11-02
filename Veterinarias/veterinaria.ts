@@ -4,7 +4,7 @@ import { Gatos } from "./gatos";
 import { Exoticos } from "./exoticos";
 import * as rls from "readline-sync";
 import { Cliente } from "./cliente";
-import { fileManager } from "./fileManager";
+import { LeerRegistros} from "./fileManager";
 import { log } from "console";
 import { Proveedor } from "./proveedor";
 
