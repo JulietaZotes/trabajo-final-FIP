@@ -67,7 +67,7 @@ export class fileManager {
         try {
             fs.writeFileSync("./pacientes.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
             console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            //rls.keyInPause("\n");
         } catch (err) {
             console.log("Error inesperado:", err);
         }
@@ -77,7 +77,7 @@ export class fileManager {
         try {
             const data = fs.readFileSync("./pacientes.txt", "utf8");
             console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            //rls.keyInPause("\n");
             const lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
             const clientesMap = new Map();
             //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
@@ -98,5 +98,4 @@ export class fileManager {
             return [];
         }
     }
-
 }

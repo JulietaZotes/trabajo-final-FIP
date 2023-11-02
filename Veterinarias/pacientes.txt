@@ -1,16 +1,26 @@
 [
   {
-    "pacientes": [],
-    "raza": "golden",
-    "sexo": "macho",
-    "edad": "3 meses",
+    "raza": "Pastor Alemán",
+    "sexo": "Macho",
+    "edad": 5,
     "duenio": {
-      "IdCliente": "236df821-ae86-4648-b8c2-048271d52e7b",
-      "clientes": [],
-      "NombreCliente": "Ana Rodriguez",
-      "TelCliente": 123456,
+      "IdCliente": "12345",
+      "NombreCliente": "Juan",
+      "TelCliente": 1234567890,
       "EsVIP": false,
-      "Visitas": 0
+      "Visitas": 2
+    }
+  },
+  {
+    "raza": "Labrador",
+    "sexo": "Hembra",
+    "edad": 3,
+    "duenio": {
+      "IdCliente": "67890",
+      "NombreCliente": "Maria",
+      "TelCliente": 9876543210,
+      "EsVIP": true,
+      "Visitas": 5
     }
   }
 ]
