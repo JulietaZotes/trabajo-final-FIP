@@ -1,21 +1,17 @@
-import { log } from "node:console";
-import { randomUUID as uid } from "node:crypto";
-
-
 export class Cliente {
-  private  IdCliente: string = uid();
+  private  IdCliente: string;
   private  NombreCliente: string;
   private  TelCliente: number;
   private  EsVIP: boolean;
   private  Visitas: number;
   clientes = [];
 
-public constructor(NombreCliente : string , TelCliente : number ){
+public constructor(idCLiente: string, NombreCliente : string , TelCliente : number ){
+  this.IdCliente = idCLiente;
   this.NombreCliente = NombreCliente ;
   this.TelCliente = TelCliente ;
   this.EsVIP = false;
-  this.Visitas = 0
-
+  this.Visitas = 0;
 }
 public Getid(){
   return this.IdCliente;
