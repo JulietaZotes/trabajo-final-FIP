@@ -76,6 +76,17 @@ export class Veterinaria {
       console.log(`Cliente con ID ${id} no encontrado.`);
     }
   }
+  public modificarCliente(id: string, nuevoNombre: string, nuevoTelefono: number): void {
+    const cliente = this.clientes.find(cliente => cliente.Getid() === id);
+  
+    if (cliente) {
+      cliente.SetNombreCliente(nuevoNombre);
+      cliente.SetTelefonoCliente(nuevoTelefono);
+      console.log(`Cliente con ID ${id} modificado con éxito.`);
+    } else {
+      console.log(`Cliente con ID ${id} no encontrado.`);
+    }
+  }
   
 
   public addProv(newProv: Proveedor){
@@ -98,7 +109,7 @@ export class Veterinaria {
           ID: ${cliente.Getid()}
           Nombre: ${cliente.GetNombreCliente()}
           Telefono: ${cliente.GetTelefonoCliente()}
-          VIP: ${cliente.isVIP()}
+          VIP: ${cliente.calcularVisitas()}
           ------
           `);     
         });

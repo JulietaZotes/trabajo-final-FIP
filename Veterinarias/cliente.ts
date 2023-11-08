@@ -34,7 +34,18 @@ public SetTelefonoCliente (TelCliente : number){
 public GetTelefonoCliente () {
   return this.TelCliente;
 }
-}  
+public calcularVisitas(): void {
+  this.Visitas++;
+
+  console.log(`Cliente ${this.NombreCliente} ha tenido ${this.Visitas} visita(s).`);
+
+  if (this.Visitas >= 5 && !this.EsVIP) {
+    this.EsVIP = true;
+    console.log(`¡Felicidades! ${this.NombreCliente} ahora es un cliente VIP.`);
+  }
+}
+}
+  
 
 ///comentario
 
