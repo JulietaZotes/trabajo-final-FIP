@@ -7,6 +7,8 @@ import { Cliente } from "./cliente";
 import { fileManager } from "./fileManager";
 import { log } from "console";
 import { Proveedor } from "./proveedor";
+import { randomUUID as uid } from "node:crypto";
+
 
 
 export class Veterinaria {
@@ -100,7 +102,8 @@ export class Veterinaria {
     console.log("\n------Datos del propietario------\n");
     const nombreDuenio = rls.question("Ingrese el nombre: ");
     const telDuenio = rls.questionInt("Ingrese el telefono: ");
-    const duenio = new Cliente(nombreDuenio, telDuenio);
+    const idDuenio = uid();
+    const duenio = new Cliente(idDuenio, nombreDuenio, telDuenio);
     console.log("\n------Datos del paciente------\n");
     const raza = rls.question("Ingrese la raza: ");
     const sexo = rls.question("Ingrese el sexo: ");
@@ -112,8 +115,12 @@ export class Veterinaria {
   }
 
   public updatePaciente(){
-    const duenioId = rls.question("Ingrese el ID del propietario: ");
-    const paciente = this.especies.find((paciente) => paciente.getDuenio().Getid() === duenioId);
+    const data = fileManager.readPacientes();
+    if (data) {
+      this.especies = data;
+    }
+    const idToUpdate = rls.question("Ingrese el ID del propietario: ");
+    const paciente = this.especies.find((paciente) => paciente.getDuenio().Getid() === idToUpdate);
     if (paciente){
     const newRaza = rls.question("Ingrese la raza: ");
     paciente.setRaza(newRaza);
@@ -133,10 +140,10 @@ export class Veterinaria {
     const readResult = fileManager.readPacientes(); //
     if (readResult) {
       console.log("\n------Pacientes------\n");
-      if (!this.especies.length) {
+      if (!readResult.length) {
         console.log("No se encontraron pacientes.\n");
       } else {
-        this.especies.forEach((paciente) => {
+        readResult.forEach((paciente) => {
           console.log(`
           ID propietario: ${paciente.getDuenio().Getid()}
           Raza: ${paciente.getRaza()}
@@ -177,11 +184,38 @@ export class Veterinaria {
       }
       rls.keyInPause();
   }
+  
+  public menuPacientes() {
+    console.log("\n------Pacientes------");
+    while(true){
+      console.clear();
+      const options = rls.keyInSelect(this.OptionsMenuPacientes);
+      switch (options) {
+        case 0:
+          this.showPacientes();
+          break;
+        case 1:
+          this.addPaciente();
+          break;
+        case 2:
+          this.updatePaciente();
+          break;
+        case 3:
+          this.deletePaciente();
+          break;
+        default:
+          return;
+      }
+    }
+  }
 
+  OptionsMenuPacientes = ["Lista de pacientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
 }
 
 const vete01 = new Veterinaria("vete 1", "av123", 1223444);
-vete01.showPacientes();
-// vete01.addPaciente();
-// vete01.updatePaciente();
-// vete01.deletePaciente();
+// vete01.showPacientes();
+//vete01.addPaciente();
+//vete01.updatePaciente();
+// vete01.showPacientes();
+//vete01.deletePaciente();
+vete01.menuPacientes();

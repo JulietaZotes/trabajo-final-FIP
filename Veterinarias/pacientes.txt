@@ -1,26 +1,44 @@
 [
   {
+    "pacientes": [],
     "raza": "Pastor Alemán",
     "sexo": "Macho",
     "edad": 5,
     "duenio": {
-      "IdCliente": "12345",
+      "clientes": [],
+      "IdCliente": "a0ed4964-63f1-469a-b52a-31c0b0be6e77",
       "NombreCliente": "Juan",
       "TelCliente": 1234567890,
       "EsVIP": false,
-      "Visitas": 2
+      "Visitas": 0
     }
   },
   {
+    "pacientes": [],
     "raza": "Labrador",
     "sexo": "Hembra",
     "edad": 3,
     "duenio": {
-      "IdCliente": "67890",
+      "clientes": [],
+      "IdCliente": "fe1f45af-b20d-49ff-9553-170bf3c6f00b",
       "NombreCliente": "Maria",
       "TelCliente": 9876543210,
-      "EsVIP": true,
-      "Visitas": 5
+      "EsVIP": false,
+      "Visitas": 0
+    }
+  },
+  {
+    "pacientes": [],
+    "raza": "Coker",
+    "sexo": "hembra",
+    "edad": "7",
+    "duenio": {
+      "clientes": [],
+      "IdCliente": "701d3088-56d0-4b79-a687-7a1a4f4d7bd7",
+      "NombreCliente": "sssddssd",
+      "TelCliente": 121222122,
+      "EsVIP": false,
+      "Visitas": 0
     }
   }
 ]
