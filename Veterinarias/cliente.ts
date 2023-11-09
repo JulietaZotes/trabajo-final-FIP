@@ -34,21 +34,20 @@ public SetTelefonoCliente (TelCliente : number){
 public GetTelefonoCliente () {
   return this.TelCliente;
 }
-public calcularVisitas(): void {
+
+public isVIP(): boolean {
+  return this.EsVIP;
+}
+public generarVisita(): void {
   this.Visitas++;
 
-  console.log(`Cliente ${this.NombreCliente} ha tenido ${this.Visitas} visita(s).`);
+  console.log(`Se generó una nueva visita para ${this.NombreCliente}.`);
+  console.log(`El cliente ${this.NombreCliente} ha tenido ${this.Visitas} visita(s).`);
 
   if (this.Visitas >= 5 && !this.EsVIP) {
     this.EsVIP = true;
     console.log(`¡Felicidades! ${this.NombreCliente} ahora es un cliente VIP.`);
   }
-}
-public mostrarVisitas(): void {
-  console.log(`El cliente ${this.NombreCliente} ha tenido ${this.Visitas} visita(s).`);
-}
-public isVIP(): boolean {
-  return this.EsVIP;
 }
 }
   
