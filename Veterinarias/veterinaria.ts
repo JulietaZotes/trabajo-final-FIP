@@ -67,26 +67,35 @@ export class Veterinaria {
     fileManager.readClientes();
     fileManager.appendClientes(this.clientes);
   }
-  public eliminarCliente (id: string): void {
-    const indiceCliente = this.clientes.findIndex(nombreCliente => nombreCliente.Getid() === id);
-    if (indiceCliente !== -1) {
-      this.clientes.splice(indiceCliente, 1);
-      console.log(`Cliente con ID ${id} eliminado con éxito.`);
-    } else {
-      console.log(`Cliente con ID ${id} no encontrado.`);
+  public deleteCliente(): void {
+    console.log("\n-----Eliminar cliente-----\n");
+    const data = fileManager.readClientes();
+    
+    if (data) {
+      this.clientes = data;
     }
+    
+    const idToDelete = rls.question("Ingrese el ID del cliente: ");
+    const clienteIndex = this.clientes.findIndex((cliente) => cliente.Getid() === idToDelete);
+    
+    if (clienteIndex !== -1) {
+      const clienteToDelete = this.clientes[clienteIndex];
+      const confirmation = rls.keyInYNStrict("¿Quiere eliminar al cliente?");
+      
+      if (confirmation) {
+        this.clientes.splice(clienteIndex, 1);
+        fileManager.appendClientes(this.clientes);
+        console.log("Cliente eliminado con éxito.");
+      } else {
+        console.log("Operación cancelada. Cliente no eliminado.\n");
+      }
+    } else {
+      console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
+    }
+    
+    rls.keyInPause();
   }
-  public modificarCliente(id: string, nuevoNombre: string, nuevoTelefono: number): void {
-    const cliente = this.clientes.find(cliente => cliente.Getid() === id);
   
-    if (cliente) {
-      cliente.SetNombreCliente(nuevoNombre);
-      cliente.SetTelefonoCliente(nuevoTelefono);
-      console.log(`Cliente con ID ${id} modificado con éxito.`);
-    } else {
-      console.log(`Cliente con ID ${id} no encontrado.`);
-    }
-  }
   
 
   public addProv(newProv: Proveedor){
