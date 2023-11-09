@@ -44,6 +44,12 @@ public calcularVisitas(): void {
     console.log(`¡Felicidades! ${this.NombreCliente} ahora es un cliente VIP.`);
   }
 }
+public mostrarVisitas(): void {
+  console.log(`El cliente ${this.NombreCliente} ha tenido ${this.Visitas} visita(s).`);
+}
+public isVIP(): boolean {
+  return this.EsVIP;
+}
 }
   
 

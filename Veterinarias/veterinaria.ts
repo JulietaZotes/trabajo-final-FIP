@@ -53,35 +53,59 @@ export class Veterinaria {
     this.telefono = nuevoTelefono;
   }
 
-  public mostrarInformacion(): void {
-    console.log(`
-    Nombre: ${this.nombre}
-    Dirección: ${this.direccion} 
-    Telefono: ${this.telefono}
-    `);
-  }
-
-  public agregarCliente(newCliente: Cliente){
-
-    this.clientes.push(newCliente);
-    fileManager.readClientes();
-    fileManager.appendClientes(this.clientes);
-  }
-  public deleteCliente(): void {
-    console.log("\n-----Eliminar cliente-----\n");
+  public mostrarClientes(): void {
+    console.log("\n---Lista de Clientes---\n");
+  
     const data = fileManager.readClientes();
-    
+  
     if (data) {
       this.clientes = data;
     }
-    
+  
+    if (this.clientes.length === 0) {
+      console.log("No hay clientes registrados.\n");
+    } else {
+      this.clientes.forEach((cliente) => {
+        console.log(`
+          ID: ${cliente.Getid()}
+          Nombre: ${cliente.GetNombreCliente()}
+          Teléfono: ${cliente.GetTelefonoCliente()}
+          VIP: ${cliente.isVIP() ? 'Sí' : 'No'}  // Ternaria js
+          ------
+        `);
+      });
+    }
+  
+    rls.keyInPause();
+  }
+  public agregarCliente() {
+    const data = fileManager.readClientes();
+    console.log("\n------Nuevo cliente------\n");
+    const nombreCliente = rls.question("Ingrese el nombre: ");
+    const telCliente = rls.questionInt("Ingrese el telefono: ");
+    const newCliente = new Cliente(nombreCliente, telCliente);
+    data.push(newCliente);
+    fileManager.appendClientes(data);
+    console.log("Cliente añadido con éxito.\n");
+    rls.keyInPause();
+  }
+  
+
+  public eliminarCliente(): void {
+    console.log("\n------Eliminar cliente------\n");
+    const data = fileManager.readClientes();
+  
+    if (data) {
+      this.clientes = data;
+    }
+  
     const idToDelete = rls.question("Ingrese el ID del cliente: ");
     const clienteIndex = this.clientes.findIndex((cliente) => cliente.Getid() === idToDelete);
-    
+  
     if (clienteIndex !== -1) {
       const clienteToDelete = this.clientes[clienteIndex];
       const confirmation = rls.keyInYNStrict("¿Quiere eliminar al cliente?");
-      
+  
       if (confirmation) {
         this.clientes.splice(clienteIndex, 1);
         fileManager.appendClientes(this.clientes);
@@ -92,7 +116,32 @@ export class Veterinaria {
     } else {
       console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
     }
-    
+  
+    rls.keyInPause();
+  }
+  public actualizarCliente(): void {
+    const data = fileManager.readClientes();
+  
+    if (data) {
+      this.clientes = data;
+    }
+  
+    const idToUpdate = rls.question("Ingrese el ID del cliente: ");
+    const cliente = this.clientes.find((cliente) => cliente.Getid() === idToUpdate);
+  
+    if (cliente) {
+      const newNombre = rls.question("Ingrese el nuevo nombre: ");
+      cliente.SetNombreCliente(newNombre);
+  
+      const newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+      cliente.SetTelefonoCliente(Number(newTelefono)); // Asumo que el teléfono es un número
+  
+      console.log("Datos actualizados exitosamente.\n");
+      fileManager.appendClientes(this.clientes);
+    } else {
+      console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
+    }
+  
     rls.keyInPause();
   }
   
@@ -125,11 +174,34 @@ export class Veterinaria {
       } 
     }
   }
+  public menuClientes() {
+    console.log("\n------Clientes------");
+    while (true) {
+      console.clear();
+      const options = rls.keyInSelect(this.OptionsMenuClientes);
+      switch (options) {
+        case 0:
+          this.mostrarClientes();
+          break;
+        case 1:
+          this.agregarCliente();
+          break;
+        case 2:
+          this.actualizarCliente();
+          break;
+        case 3:
+          this.eliminarCliente();
+          break;
+      }
+    }
+  }
+  
+  OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar"];
 }
 
 const vete01 = new Veterinaria("vete 1", "av123", 1223444);
 const cliente01 = new Cliente("Ana Rodriguez", 123456);
-vete01.agregarCliente(cliente01);
+vete01.agregarCliente();
 const perro01 = new Perros("golden", "macho", "3 meses", cliente01);
 //const exotico01 = new Exoticos("piton", "macho", "10 años", "vibora")
 vete01.addPaciente(perro01);
