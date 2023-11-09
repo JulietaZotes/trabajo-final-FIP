@@ -167,7 +167,7 @@ export class Veterinaria {
           ID: ${cliente.Getid()}
           Nombre: ${cliente.GetNombreCliente()}
           Telefono: ${cliente.GetTelefonoCliente()}
-          VIP: ${cliente.calcularVisitas()}
+          VIP: ${cliente.isVIP()}
           ------
           `);     
         });
