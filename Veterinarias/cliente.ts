@@ -2,20 +2,22 @@ import { randomUUID as uid } from "node:crypto";
 
 
 export class Cliente {
-  private  IdCliente: string = uid();
+  private idCliente: string;
   private  NombreCliente: string;
   private  TelCliente: number;
   private  EsVIP: boolean;
   private  Visitas: number;
-  clientes = [];
-
-public constructor(NombreCliente : string , TelCliente : number ){
+  
+public constructor(NombreCliente : string , TelCliente : number){
+  this.idCliente = uid();
   this.NombreCliente = NombreCliente ;
   this.TelCliente = TelCliente ;
+  this.EsVIP = false;
+  this.Visitas = 0;
 
 }
 public Getid(){
-  return this.IdCliente;
+  return this.idCliente;
 
 }
 
@@ -52,7 +54,4 @@ public generarVisita(): void {
 }
   
 
-///comentario
 
-
-//funcionaaaaasdasd

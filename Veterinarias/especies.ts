@@ -104,14 +104,3 @@ function eliminarEspecie(index: number): boolean {
   }
   return false;
 }
-
-
-const especie1 = new Especies("Raza1", "Sexo1", "Edad1");
-const especie2 = new Especies("Raza2", "Sexo2", "Edad2");
-
-crearEspecie(especie1);
-crearEspecie(especie2);
-
-console.log(obtenerTodasLasEspecies());
-
-
