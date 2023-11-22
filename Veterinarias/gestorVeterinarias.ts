@@ -135,12 +135,13 @@ class gestorVeterinarias {
 
     OptionsMenuPacientes = ["Lista de pacientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
     OptionsMenuSucursales = ["Lista de sucursales", "Anadir nueva", "Actualizar datos", "Eliminar"];
+    OptionsMenuGeneral = ["Sucursales", "Pacientes", "Clientes", "Proveedores"];
 
     //CRUD Sucursales
     public addVeterinaria() {
         const data = fileManager.readVeterinarias();
         console.log("\n------Nueva sucursal------\n");
-        
+
         const nombreVeterinaria = rls.question("Ingrese el nombre: ");
         const direccionVeterinaria = rls.question("Ingrese la direccion: ");
         const telVeterinaria = rls.questionInt("Ingrese el telefono: ");
@@ -151,9 +152,10 @@ class gestorVeterinarias {
         fileManager.appendVeterinarias(data);
         rls.keyInPause();
     }
-    
+
     public updateVeterinaria() {
         const data = fileManager.readVeterinarias();
+        console.log("\n------Actualizar datos sucursal------\n");
         if (data) {
             this.sucursales = data;
         }
@@ -245,11 +247,30 @@ class gestorVeterinarias {
             }
         }
     }
-}
+
+    public menuGeneral() {
+        console.log("\n------Menu Principal------");
+        while (true) {
+            console.clear();
+            const options = rls.keyInSelect(this.OptionsMenuGeneral);
+            switch (options) {
+                case 0:
+                    this.menuSucursales();
+                    break;
+                case 1:
+                    this.menuPacientes();
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    }
 
 
 
-const gestor = new gestorVeterinarias();
+    const gestor = new gestorVeterinarias();
 //gestor.menuPacientes()
 //gestor.addVeterinaria()
-gestor.menuSucursales()
+gestor.menuGeneral()
