@@ -3,6 +3,7 @@ import { Cliente } from "./cliente";
 import { Proveedor } from "./proveedor";
 import { Especies } from "./especies";
 import * as rls from "readline-sync";
+import { Veterinaria } from "./veterinaria";
 
 interface PacienteData {
     raza: string;
@@ -16,6 +17,12 @@ interface PacienteData {
         Visitas: number;
     };
 }
+interface VeterinariaData {
+        nombre: string;
+        direccion: string;
+        telefono: number;
+        id: string;
+    }
 export class fileManager {
 
     static readClientes() {
@@ -123,4 +130,51 @@ export class fileManager {
             return [];
         }
     }
+
+    static appendVeterinarias(data: Veterinaria[]) {
+        try {
+            fs.writeFileSync("./veterinarias.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
+            //console.log("Operacion exitosa.");
+            rls.keyInPause("\n");
+        } catch (err) {
+            console.log("Error inesperado:", err);
+        }
+    }
+
+    
+    
+    static readVeterinarias() {
+        try {
+            const data = fs.readFileSync("./veterinarias.txt", "utf8");
+            const datosVeterinarias: VeterinariaData[] = JSON.parse(data);
+    
+            const mapaVeterinarias = new Map<string, Veterinaria>();
+            const veterinarias = datosVeterinarias.map((datosVeterinaria) => {
+                const idVeterinaria = datosVeterinaria.id;
+    
+                // Verificar si la veterinaria ya existe en el mapa
+                let veterinaria = mapaVeterinarias.get(idVeterinaria);
+    
+                if (!veterinaria) {
+                    const nombreVeterinaria = datosVeterinaria.nombre;
+                    const direccionVeterinaria = datosVeterinaria.direccion;
+                    const telVeterinaria = datosVeterinaria.telefono;
+    
+                    // Si no existe, crear una nueva instancia de Veterinaria
+                    veterinaria = new Veterinaria(nombreVeterinaria, direccionVeterinaria, telVeterinaria, idVeterinaria);
+                    // Agregar la veterinaria al mapa
+                    mapaVeterinarias.set(idVeterinaria, veterinaria);
+                }
+    
+                return veterinaria;
+            });
+    
+            // Devolver el array de veterinarias
+            return veterinarias as Veterinaria[];
+        } catch (err) {
+            console.error(err);
+            return [];
+        }
+    }
+    
 }

@@ -1,0 +1,8 @@
+[
+  {
+    "nombre": "Sucursal 01",
+    "direccion": "Av 56 235",
+    "telefono": 1243211,
+    "id": "3332a792-0528-4963-ac9c-4f3e8a095e8d"
+  }
+]
