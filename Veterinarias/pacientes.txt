@@ -26,19 +26,5 @@
       "EsVIP": false,
       "Visitas": 0
     }
-  },
-  {
-    "pacientes": [],
-    "raza": "caniche",
-    "sexo": "macho",
-    "edad": "7",
-    "duenio": {
-      "clientes": [],
-      "IdCliente": "ca25932c-90e0-4ef7-ba28-ef4e7a34493f",
-      "NombreCliente": "Nicolas",
-      "TelCliente": 2345431,
-      "EsVIP": false,
-      "Visitas": 0
-    }
   }
 ]
