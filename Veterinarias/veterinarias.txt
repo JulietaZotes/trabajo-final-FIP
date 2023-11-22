@@ -2,7 +2,13 @@
   {
     "nombre": "Sucursal 01",
     "direccion": "Av 56 235",
-    "telefono": 1243211,
+    "telefono": 11111111,
     "id": "3332a792-0528-4963-ac9c-4f3e8a095e8d"
+  },
+  {
+    "nombre": "Sucursal 02",
+    "direccion": "Calle 34 278",
+    "telefono": 235216,
+    "id": "fbc0016a-dcb5-454a-822c-d21211e5e1f5"
   }
 ]

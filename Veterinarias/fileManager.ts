@@ -135,7 +135,7 @@ export class fileManager {
         try {
             fs.writeFileSync("./veterinarias.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
             //console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            //rls.keyInPause("\n");
         } catch (err) {
             console.log("Error inesperado:", err);
         }
@@ -148,7 +148,7 @@ export class fileManager {
             const data = fs.readFileSync("./veterinarias.txt", "utf8");
             const datosVeterinarias: VeterinariaData[] = JSON.parse(data);
     
-            const mapaVeterinarias = new Map<string, Veterinaria>();
+            const mapaVeterinarias = new Map<string, Veterinaria>(); //clave: string, valor: instancia de Veterinaria
             const veterinarias = datosVeterinarias.map((datosVeterinaria) => {
                 const idVeterinaria = datosVeterinaria.id;
     
@@ -163,7 +163,7 @@ export class fileManager {
                     // Si no existe, crear una nueva instancia de Veterinaria
                     veterinaria = new Veterinaria(nombreVeterinaria, direccionVeterinaria, telVeterinaria, idVeterinaria);
                     // Agregar la veterinaria al mapa
-                    mapaVeterinarias.set(idVeterinaria, veterinaria);
+                    mapaVeterinarias.set(idVeterinaria, veterinaria); //asocia la clave idVeterinaria con la instancia veterinaria dentro del Map.
                 }
     
                 return veterinaria;

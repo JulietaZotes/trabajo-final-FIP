@@ -29,14 +29,14 @@
   },
   {
     "pacientes": [],
-    "raza": "Coker",
-    "sexo": "hembra",
+    "raza": "caniche",
+    "sexo": "macho",
     "edad": "7",
     "duenio": {
       "clientes": [],
-      "IdCliente": "701d3088-56d0-4b79-a687-7a1a4f4d7bd7",
-      "NombreCliente": "sssddssd",
-      "TelCliente": 121222122,
+      "IdCliente": "ca25932c-90e0-4ef7-ba28-ef4e7a34493f",
+      "NombreCliente": "Nicolas",
+      "TelCliente": 2345431,
       "EsVIP": false,
       "Visitas": 0
     }
