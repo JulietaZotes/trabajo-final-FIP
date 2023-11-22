@@ -1,0 +1,30 @@
+[
+  {
+    "pacientes": [],
+    "raza": "Pastor Alemán",
+    "sexo": "Macho",
+    "edad": 5,
+    "duenio": {
+      "clientes": [],
+      "IdCliente": "a0ed4964-63f1-469a-b52a-31c0b0be6e77",
+      "NombreCliente": "Juan",
+      "TelCliente": 1234567890,
+      "EsVIP": false,
+      "Visitas": 0
+    }
+  },
+  {
+    "pacientes": [],
+    "raza": "Labrador",
+    "sexo": "Hembra",
+    "edad": 3,
+    "duenio": {
+      "clientes": [],
+      "IdCliente": "fe1f45af-b20d-49ff-9553-170bf3c6f00b",
+      "NombreCliente": "Maria",
+      "TelCliente": 9876543210,
+      "EsVIP": false,
+      "Visitas": 0
+    }
+  }
+]

@@ -2,29 +2,37 @@ import { Especies } from "./especies";
 import { Perros } from "./perros";
 import { Gatos } from "./gatos";
 import { Exoticos } from "./exoticos";
+import * as rls from "readline-sync";
+import { Cliente } from "./cliente";
+import { fileManager } from "./fileManager";
+import { log } from "console";
+import { Proveedor } from "./proveedor";
+import { randomUUID as uid } from "node:crypto";
+
+
 
 export class Veterinaria {
-  private direccion:string;
-  private nombre:string;
-  private telefono:number;
-  private especies: Especies[];
-  public constructor(nombre:string,direccion:string, telefono:number) {
-      this.nombre = nombre;
-      this.direccion = direccion;
-      this.telefono = telefono;
-      this.especies = [];
-    };
-    
-  public addPaciente(paciente: Especies){
-    this.especies.push(paciente);
-    console.log(this.especies);
+  private direccion: string;
+  private nombre: string;
+  private telefono: number;
+  private id: string;
+
+  public constructor(nombre: string, direccion: string, telefono: number, id: string) {
+    this.nombre = nombre;
+    this.direccion = direccion;
+    this.telefono = telefono;
+    this.id = id;
+  };
+
+  public getId(): string {
+    return this.id;
   }
   public getNombre(): string {
     return this.nombre;
   }
 
   public getDireccion(): string {
-  return this.direccion;
+    return this.direccion;
   }
 
   public getTelefono(): number {
@@ -43,17 +51,4 @@ export class Veterinaria {
     this.telefono = nuevoTelefono;
   }
 
-  public mostrarInformacion(): void {
-    console.log(`
-    Nombre: ${this.nombre}
-    Dirección: ${this.direccion} 
-    Telefono: ${this.telefono}
-    `);
-  }
 }
-
-const vete01 = new Veterinaria("vete 1", "av123", 1223444);
-const perro01 = new Perros("golden", "macho", "3 meses");
-const exotico01 = new Exoticos("piton", "macho", "10 años", "vibora")
-vete01.addPaciente(perro01);
-vete01.addPaciente(exotico01);
