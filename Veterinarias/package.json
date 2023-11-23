@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "readline-sync": "^1.4.10"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
   }
 }

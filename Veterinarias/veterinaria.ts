@@ -3,6 +3,7 @@ import { Cliente } from "./cliente";
 import { fileManager } from "./fileManager";
 import { Proveedor } from "./proveedor";
 import * as rls from "readline-sync";
+import { v4 as uuidv4 } from 'uuid';
 
 export class Veterinaria {
   private direccion: string;
@@ -51,33 +52,40 @@ export class Veterinaria {
   }
 
   public addCliente(): void {
-    const data = fileManager.readClientes() || [];
+    const data = fileManager.readClientes("./clientes.txt") || [];
     console.log("\n------Datos del cliente------\n");
     const telefono = rls.questionInt("Ingrese el numero de telefono: ");
     const nombre = rls.question("Ingrese nombre del cliente: ");
-    const newCliente = new Cliente(nombre, telefono);
+
+    // Generar un nuevo ID automáticamente
+    const idCliente = uuidv4();
+    const newCliente = new Cliente(idCliente, nombre, telefono);
+
     // Añadir validación para evitar duplicados si es necesario
-    const existingCliente = data.find((cliente) => cliente.Getid() === newCliente.Getid());
+    const existingCliente = data.find((cliente) => cliente.GetIdUnico() === newCliente.GetIdUnico());
+
     if (!existingCliente) {
-      data.push(newCliente);
-      fileManager.appendClientes(data);
-  
-      console.log("Cliente añadido con éxito.\n");
+        data.push(newCliente);
+        fileManager.appendClientes(data);
+
+        console.log("Cliente añadido con éxito.\n");
     } else {
-      console.log("El cliente ya existe.\n");
+        console.log("El cliente ya existe.\n");
     }
-  
+
     rls.keyInPause();
-  }
+}
+
+
   
   public updateCliente() {
-    const data = fileManager.readClientes();
+    const data = fileManager.readClientes("./clientes.txt");
     if (data) {
       this.clientes = data;
     }
   
     const idToUpdate = rls.question("Ingrese el ID del cliente: ");
-    const cliente = this.clientes.find((cliente) => cliente.Getid() === idToUpdate);
+    const cliente = this.clientes.find((cliente) => cliente.GetIdUnico() === idToUpdate);
   
     if (cliente) {
       const newNombre = rls.question("Ingrese el nuevo nombre: ");
@@ -95,7 +103,7 @@ export class Veterinaria {
     rls.keyInPause();
   }
   public showClientes() {
-    const readResult = fileManager.readClientes(); //
+    const readResult = fileManager.readClientes("./clientes.txt"); //
     if (readResult) {
       console.log("\n------clientes------\n");
       if (!readResult.length) {
@@ -115,13 +123,13 @@ export class Veterinaria {
   
   public deleteCliente() {
     console.log("\n------Eliminar cliente------\n");
-    const data = fileManager.readClientes();
+    const data = fileManager.readClientes("./clientes.txt");
     if (data) {
       this.clientes = data;
     }
     const idToDelete = rls.question("Ingrese el ID del cliente: ");
     const clienteIndex = this.clientes.findIndex(
-      (cliente) => cliente.Getid() === idToDelete
+      (cliente) => cliente.GetIdUnico() === idToDelete
     );
     if (clienteIndex !== -1) {
       const clienteToDelete = this.clientes[clienteIndex];
@@ -170,4 +178,3 @@ export class Veterinaria {
 }
 const vete01 = new Veterinaria("vete 1", "av123", 1223444);
 vete01.menuClientes();
-    

@@ -1,17 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cliente = void 0;
-var node_crypto_1 = require("node:crypto");
+var uuid_1 = require("uuid");
 var Cliente = /** @class */ (function () {
-    function Cliente(NombreCliente, TelCliente) {
-        this.idCliente = (0, node_crypto_1.randomUUID)();
+    function Cliente(idCliente, NombreCliente, TelCliente) {
+        this.clientes = [];
+        this.idUnico = idCliente || (0, uuid_1.v4)();
         this.NombreCliente = NombreCliente;
         this.TelCliente = TelCliente;
         this.EsVIP = false;
         this.Visitas = 0;
     }
-    Cliente.prototype.Getid = function () {
-        return this.idCliente;
+    Cliente.prototype.GetIdUnico = function () {
+        return this.idUnico;
     };
     Cliente.prototype.SetNombreCliente = function (NombreCliente) {
         this.NombreCliente = NombreCliente;

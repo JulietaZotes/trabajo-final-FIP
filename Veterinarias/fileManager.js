@@ -9,21 +9,29 @@ var rls = require("readline-sync");
 var fileManager = /** @class */ (function () {
     function fileManager() {
     }
-    fileManager.readClientes = function () {
+    fileManager.readClientes = function (filePath) {
         try {
-            var data = fs.readFileSync("./clientes.txt", "utf8");
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
-            var lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
-            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
-            var clientes = lineas.map(function (linea) {
-                var _a = linea.split(","), nombreCliente = _a[0], telCliente = _a[1]; //el método split divide cada linea en un array de dos elementos.
-                return new cliente_1.Cliente(nombreCliente, parseInt(telCliente)); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
+            var data = fs.readFileSync(filePath, 'utf8');
+            // Verificar si el archivo está vacío
+            if (!data.trim()) {
+                console.log("El archivo de clientes está vacío.");
+                return [];
+            }
+            var clientesData = JSON.parse(data);
+            if (!Array.isArray(clientesData)) {
+                console.error('El archivo no contiene un array de clientes.');
+                return [];
+            }
+            var clientes = clientesData.map(function (clienteData) {
+                var idCliente = clienteData.idUnico || '';
+                var nombreCliente = clienteData.NombreCliente || '';
+                var telCliente = parseInt(clienteData.TelCliente);
+                return new cliente_1.Cliente(idCliente, nombreCliente, telCliente);
             });
             return clientes;
         }
         catch (err) {
-            console.error(err);
+            console.error('Error al leer el archivo de clientes:', err);
             return [];
         }
     };
@@ -87,7 +95,7 @@ var fileManager = /** @class */ (function () {
                 var _a = linea.split(","), raza = _a[0], sexo = _a[1], edad = _a[2], idCliente = _a[3], nombreCliente = _a[4], telCliente = _a[5]; //el método split divide cada linea en un array de dos elementos.
                 var cliente = clientesMap_1.get(idCliente);
                 if (!cliente) {
-                    var cliente_2 = new cliente_1.Cliente(nombreCliente, parseInt(telCliente));
+                    var cliente_2 = new cliente_1.Cliente(idCliente, nombreCliente, parseInt(telCliente));
                     //clientesMap.setId(idCliente);
                     clientesMap_1.set(idCliente, cliente_2);
                 }
@@ -103,3 +111,6 @@ var fileManager = /** @class */ (function () {
     return fileManager;
 }());
 exports.fileManager = fileManager;
+function randomUUID() {
+    throw new Error("Function not implemented.");
+}

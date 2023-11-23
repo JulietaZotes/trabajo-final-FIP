@@ -4,6 +4,7 @@ exports.Veterinaria = void 0;
 var cliente_1 = require("./cliente");
 var fileManager_1 = require("./fileManager");
 var rls = require("readline-sync");
+var uuid_1 = require("uuid");
 var Veterinaria = /** @class */ (function () {
     function Veterinaria(nombre, direccion, telefono) {
         this.OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
@@ -37,13 +38,15 @@ var Veterinaria = /** @class */ (function () {
         this.telefono = nuevoTelefono;
     };
     Veterinaria.prototype.addCliente = function () {
-        var data = fileManager_1.fileManager.readClientes() || [];
+        var data = fileManager_1.fileManager.readClientes("./clientes.txt") || [];
         console.log("\n------Datos del cliente------\n");
         var telefono = rls.questionInt("Ingrese el numero de telefono: ");
         var nombre = rls.question("Ingrese nombre del cliente: ");
-        var newCliente = new cliente_1.Cliente(nombre, telefono);
+        // Generar un nuevo ID automáticamente
+        var idCliente = (0, uuid_1.v4)();
+        var newCliente = new cliente_1.Cliente(idCliente, nombre, telefono);
         // Añadir validación para evitar duplicados si es necesario
-        var existingCliente = data.find(function (cliente) { return cliente.Getid() === newCliente.Getid(); });
+        var existingCliente = data.find(function (cliente) { return cliente.GetIdUnico() === newCliente.GetIdUnico(); });
         if (!existingCliente) {
             data.push(newCliente);
             fileManager_1.fileManager.appendClientes(data);
@@ -55,12 +58,12 @@ var Veterinaria = /** @class */ (function () {
         rls.keyInPause();
     };
     Veterinaria.prototype.updateCliente = function () {
-        var data = fileManager_1.fileManager.readClientes();
+        var data = fileManager_1.fileManager.readClientes("./clientes.txt");
         if (data) {
             this.clientes = data;
         }
         var idToUpdate = rls.question("Ingrese el ID del cliente: ");
-        var cliente = this.clientes.find(function (cliente) { return cliente.Getid() === idToUpdate; });
+        var cliente = this.clientes.find(function (cliente) { return cliente.GetIdUnico() === idToUpdate; });
         if (cliente) {
             var newNombre = rls.question("Ingrese el nuevo nombre: ");
             cliente.SetNombreCliente(newNombre);
@@ -75,7 +78,7 @@ var Veterinaria = /** @class */ (function () {
         rls.keyInPause();
     };
     Veterinaria.prototype.showClientes = function () {
-        var readResult = fileManager_1.fileManager.readClientes(); //
+        var readResult = fileManager_1.fileManager.readClientes("./clientes.txt"); //
         if (readResult) {
             console.log("\n------clientes------\n");
             if (!readResult.length) {
@@ -91,12 +94,12 @@ var Veterinaria = /** @class */ (function () {
     };
     Veterinaria.prototype.deleteCliente = function () {
         console.log("\n------Eliminar cliente------\n");
-        var data = fileManager_1.fileManager.readClientes();
+        var data = fileManager_1.fileManager.readClientes("./clientes.txt");
         if (data) {
             this.clientes = data;
         }
         var idToDelete = rls.question("Ingrese el ID del cliente: ");
-        var clienteIndex = this.clientes.findIndex(function (cliente) { return cliente.Getid() === idToDelete; });
+        var clienteIndex = this.clientes.findIndex(function (cliente) { return cliente.GetIdUnico() === idToDelete; });
         if (clienteIndex !== -1) {
             var clienteToDelete = this.clientes[clienteIndex];
             var confirmation = rls.keyInYNStrict("¿Quiere eliminar al cliente?");

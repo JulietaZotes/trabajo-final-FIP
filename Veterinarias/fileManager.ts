@@ -4,25 +4,49 @@ import { Proveedor } from "./proveedor";
 import { Especies } from "./especies";
 import * as rls from "readline-sync";
 
+export interface ClienteData {
+    idCliente: string;
+    NombreCliente: string;
+    TelCliente: number;
+  }
+
 export class fileManager {
 
-    static readClientes() {
+    static readClientes(filePath) {
         try {
-            const data = fs.readFileSync("./clientes.txt", "utf8");
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
-            const lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
-            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
-            const clientes = lineas.map((linea) => {
-                const [nombreCliente, telCliente] = linea.split(","); //el método split divide cada linea en un array de dos elementos.
-                return new Cliente(nombreCliente, parseInt(telCliente)); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
+            const data = fs.readFileSync(filePath, 'utf8');
+    
+            // Verificar si el archivo está vacío
+            if (!data.trim()) {
+                console.log("El archivo de clientes está vacío.");
+                return [];
+            }
+    
+            const clientesData = JSON.parse(data);
+    
+            if (!Array.isArray(clientesData)) {
+                console.error('El archivo no contiene un array de clientes.');
+                return [];
+            }
+    
+            const clientes = clientesData.map((clienteData) => {
+                const idCliente = clienteData.idUnico || '';
+                const nombreCliente = clienteData.NombreCliente || '';
+                const telCliente = parseInt(clienteData.TelCliente);
+    
+                return new Cliente(idCliente, nombreCliente, telCliente);
             });
-            return clientes as Cliente[];
+    
+            return clientes;
         } catch (err) {
-            console.error(err);
+            console.error('Error al leer el archivo de clientes:', err);
             return [];
         }
     }
+    
+    
+    
+    
 
     static appendClientes(data: Cliente[]) {
         try {
@@ -33,7 +57,6 @@ export class fileManager {
             console.log("Error inesperado:", err);
         }
     }
-
     
     static readProveedores() {
         try {
@@ -85,7 +108,7 @@ export class fileManager {
                 const [raza, sexo, edad, idCliente ,nombreCliente, telCliente] = linea.split(","); //el método split divide cada linea en un array de dos elementos.
                 let cliente = clientesMap.get(idCliente);
                 if(!cliente){ 
-                    const cliente = new Cliente(nombreCliente, parseInt(telCliente));
+                    const cliente = new Cliente(idCliente,nombreCliente, parseInt(telCliente), );
                     //clientesMap.setId(idCliente);
                     clientesMap.set(idCliente, cliente);
                 }
@@ -98,4 +121,8 @@ export class fileManager {
             return [];
         }
     }
+}
+
+function randomUUID(): string {
+    throw new Error("Function not implemented.");
 }
