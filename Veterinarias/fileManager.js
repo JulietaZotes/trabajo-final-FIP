@@ -45,21 +45,29 @@ var fileManager = /** @class */ (function () {
             console.log("Error inesperado:", err);
         }
     };
-    fileManager.readProveedores = function () {
+    fileManager.readProveedores = function (filePath) {
         try {
-            var data = fs.readFileSync("./proveedores.txt", "utf8");
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
-            var lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
-            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
-            var proveedores = lineas.map(function (linea) {
-                var _a = linea.split(","), nombreProv = _a[0], telProv = _a[1]; //el método split divide cada linea en un array de dos elementos.
-                return new proveedor_1.Proveedor(nombreProv, parseInt(telProv)); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
+            var data = fs.readFileSync(filePath, 'utf8');
+            // Verificar si el archivo está vacío
+            if (!data.trim()) {
+                console.log("El archivo de proveedores está vacío.");
+                return [];
+            }
+            var proveedoresData = JSON.parse(data);
+            if (!Array.isArray(proveedoresData)) {
+                console.error('El archivo no contiene un array de proveedores.');
+                return [];
+            }
+            var proveedores = proveedoresData.map(function (proveedorData) {
+                var idProv = proveedorData.IdProv || '';
+                var nombreProv = proveedorData.NombreProv || '';
+                var telProv = parseInt(proveedorData.TelefonoProv);
+                return new proveedor_1.Proveedor(nombreProv, telProv, idProv);
             });
             return proveedores;
         }
         catch (err) {
-            console.error(err);
+            console.error('Error al leer el archivo de proveedores:', err);
             return [];
         }
     };

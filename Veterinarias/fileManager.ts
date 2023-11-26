@@ -9,6 +9,12 @@ export interface ClienteData {
     NombreCliente: string;
     TelCliente: number;
   }
+  export interface proveedorData  {
+    idProveedor: string;
+    NombreProveedor: string;
+    TelProveedor: number;
+  }
+
 
 export class fileManager {
 
@@ -44,10 +50,6 @@ export class fileManager {
         }
     }
     
-    
-    
-    
-
     static appendClientes(data: Cliente[]) {
         try {
             fs.writeFileSync("./clientes.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
@@ -58,23 +60,40 @@ export class fileManager {
         }
     }
     
-    static readProveedores() {
+    static readProveedores(filePath) {
         try {
-            const data = fs.readFileSync("./proveedores.txt", "utf8");
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
-            const lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
-            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
-            const proveedores = lineas.map((linea) => {
-                const [nombreProv, telProv] = linea.split(","); //el método split divide cada linea en un array de dos elementos.
-                return new Proveedor (nombreProv, parseInt(telProv)); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
+            const data = fs.readFileSync(filePath, 'utf8');
+
+            // Verificar si el archivo está vacío
+            if (!data.trim()) {
+                console.log("El archivo de proveedores está vacío.");
+                return [];
+            }
+
+            const proveedoresData = JSON.parse(data);
+
+            if (!Array.isArray(proveedoresData)) {
+                console.error('El archivo no contiene un array de proveedores.');
+                return [];
+            }
+
+            const proveedores = proveedoresData.map((proveedorData) => {
+                const idProv = proveedorData.IdProv || '';
+                const nombreProv = proveedorData.NombreProv || '';
+                const telProv = parseInt(proveedorData.TelefonoProv);
+
+                return new Proveedor(nombreProv, telProv, idProv);
             });
-            return proveedores as Proveedor[];
+
+            return proveedores;
         } catch (err) {
-            console.error(err);
+            console.error('Error al leer el archivo de proveedores:', err);
             return [];
         }
     }
+        
+    
+    
 
     static appendProveedores(data: Proveedor[]) {
         try {

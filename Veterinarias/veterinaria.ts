@@ -148,6 +148,129 @@ export class Veterinaria {
   
     rls.keyInPause();
   }
+  public addProveedor(): void {
+    const data = fileManager.readProveedores("./proveedores.txt") || [];
+    console.log("\n------Datos del proveedor------\n");
+    const telefono = rls.questionInt("Ingrese el número de teléfono: ");
+    const nombre = rls.question("Ingrese el nombre del proveedor: ");
+
+    // Generar un nuevo ID automáticamente
+    const idProveedor = uuidv4();
+    const newProveedor = new Proveedor(nombre, telefono, idProveedor);
+
+    // Añadir validación para evitar duplicados si es necesario
+    const existingProveedor = data.find((proveedor) => proveedor.getIdProv() === newProveedor.getIdProv());
+
+    if (!existingProveedor) {
+        data.push(newProveedor);
+        fileManager.appendProveedores(data);
+
+        console.log("Proveedor añadido con éxito.\n");
+    } else {
+        console.log("El proveedor ya existe.\n");
+    }
+
+    rls.keyInPause();
+}
+
+
+  public updateProveedor() {
+    const data = fileManager.readProveedores("./proveedores.txt");
+    if (data) {
+      this.proveedores = data;
+    }
+  
+    const idToUpdate = rls.question("Ingrese el ID del proveedor: ");
+    const proveedor = this.proveedores.find((proveedor) => proveedor.getIdProv() === idToUpdate);
+  
+    if (proveedor) {
+      const newNombre = rls.question("Ingrese el nuevo nombre: ");
+      proveedor.setNombreProv(newNombre);
+  
+      const newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+      proveedor.setTelefonoProv(Number(newTelefono));
+  
+      console.log("Datos actualizados exitosamente.\n");
+      fileManager.appendProveedores(this.proveedores);
+    } else {
+      console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
+    }
+  
+    rls.keyInPause();
+  }
+
+  public showProveedores() {
+    const readResult = fileManager.readProveedores("./proveedores.txt");
+    if (readResult) {
+      console.log("\n------proveedores------\n");
+      if (!readResult.length) {
+        console.log("No se encontraron proveedores.\n");
+      } else {
+        readResult.forEach((proveedor) => {
+          console.log(`
+          nombre proveedor: ${proveedor.getNombreProv()}
+          telefono: ${proveedor.getTelefonoProv()}
+          `);
+        });
+      }
+    }
+    rls.keyInPause();
+  }
+
+  public deleteProveedor() {
+    console.log("\n------Eliminar proveedor------\n");
+    const data = fileManager.readProveedores("./proveedores.txt");
+    if (data) {
+      this.proveedores = data;
+    }
+    const idToDelete = rls.question("Ingrese el ID del proveedor: ");
+    const proveedorIndex = this.proveedores.findIndex(
+      (proveedor) => proveedor.getIdProv() === idToDelete
+    );
+    if (proveedorIndex !== -1) {
+      const proveedorToDelete = this.proveedores[proveedorIndex];
+      const confirmation = rls.keyInYNStrict("¿Quiere eliminar al proveedor?");
+  
+      if (confirmation) {
+        this.proveedores.splice(proveedorIndex, 1);
+        fileManager.appendProveedores(this.proveedores);
+        console.log("Proveedor eliminado con éxito.");
+      } else {
+        console.log("Operación cancelada. Proveedor no eliminado.\n");
+      }
+    } else {
+      console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
+    }
+  
+    rls.keyInPause();
+  }
+  public menuProveedores() {
+    console.log("\n------Proveedores------");
+    while (true) {
+      console.clear();
+      const options = rls.keyInSelect(this.OptionsMenuProveedores);
+      switch (options) {
+        case 0:
+          this.showProveedores();
+          break;
+        case 1:
+          this.addProveedor();
+          break;
+        case 2:
+          this.updateProveedor();
+          break;
+        case 3:
+          this.deleteProveedor();
+          break;
+        case 4:
+          return; // Volver al menú principal
+      }
+    }
+  }
+  
+  OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
+
+
   public menuClientes() {
     console.log("\n------Clientes------");
     while (true) {
@@ -177,4 +300,4 @@ export class Veterinaria {
   
 }
 const vete01 = new Veterinaria("vete 1", "av123", 1223444);
-vete01.menuClientes();
+vete01.menuClientes()

@@ -1,8 +1,1 @@
-[
-  {
-    "IdProv": "50e7536f-f60c-4fae-9a1b-d80588e1f289",
-    "proveedores": [],
-    "NombreProv": "proveedor kongo",
-    "TelefonoProv": 2345433
-  }
-]
+[]

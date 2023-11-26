@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Veterinaria = void 0;
 var cliente_1 = require("./cliente");
 var fileManager_1 = require("./fileManager");
+var proveedor_1 = require("./proveedor");
 var rls = require("readline-sync");
 var uuid_1 = require("uuid");
 var Veterinaria = /** @class */ (function () {
     function Veterinaria(nombre, direccion, telefono) {
+        this.OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
         this.OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
         this.nombre = nombre;
         this.direccion = direccion;
@@ -116,6 +118,109 @@ var Veterinaria = /** @class */ (function () {
             console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
         }
         rls.keyInPause();
+    };
+    Veterinaria.prototype.addProveedor = function () {
+        var data = fileManager_1.fileManager.readProveedores("./proveedores.txt") || [];
+        console.log("\n------Datos del proveedor------\n");
+        var telefono = rls.questionInt("Ingrese el número de teléfono: ");
+        var nombre = rls.question("Ingrese el nombre del proveedor: ");
+        // Generar un nuevo ID automáticamente
+        var idProveedor = (0, uuid_1.v4)();
+        var newProveedor = new proveedor_1.Proveedor(nombre, telefono, idProveedor);
+        // Añadir validación para evitar duplicados si es necesario
+        var existingProveedor = data.find(function (proveedor) { return proveedor.getIdProv() === newProveedor.getIdProv(); });
+        if (!existingProveedor) {
+            data.push(newProveedor);
+            fileManager_1.fileManager.appendProveedores(data);
+            console.log("Proveedor añadido con éxito.\n");
+        }
+        else {
+            console.log("El proveedor ya existe.\n");
+        }
+        rls.keyInPause();
+    };
+    Veterinaria.prototype.updateProveedor = function () {
+        var data = fileManager_1.fileManager.readProveedores("./proveedores.txt");
+        if (data) {
+            this.proveedores = data;
+        }
+        var idToUpdate = rls.question("Ingrese el ID del proveedor: ");
+        var proveedor = this.proveedores.find(function (proveedor) { return proveedor.getIdProv() === idToUpdate; });
+        if (proveedor) {
+            var newNombre = rls.question("Ingrese el nuevo nombre: ");
+            proveedor.setNombreProv(newNombre);
+            var newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+            proveedor.setTelefonoProv(Number(newTelefono));
+            console.log("Datos actualizados exitosamente.\n");
+            fileManager_1.fileManager.appendProveedores(this.proveedores);
+        }
+        else {
+            console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
+        }
+        rls.keyInPause();
+    };
+    Veterinaria.prototype.showProveedores = function () {
+        var readResult = fileManager_1.fileManager.readProveedores("./proveedores.txt");
+        if (readResult) {
+            console.log("\n------proveedores------\n");
+            if (!readResult.length) {
+                console.log("No se encontraron proveedores.\n");
+            }
+            else {
+                readResult.forEach(function (proveedor) {
+                    console.log("\n          nombre proveedor: ".concat(proveedor.getNombreProv(), "\n          telefono: ").concat(proveedor.getTelefonoProv(), "\n          "));
+                });
+            }
+        }
+        rls.keyInPause();
+    };
+    Veterinaria.prototype.deleteProveedor = function () {
+        console.log("\n------Eliminar proveedor------\n");
+        var data = fileManager_1.fileManager.readProveedores("./proveedores.txt");
+        if (data) {
+            this.proveedores = data;
+        }
+        var idToDelete = rls.question("Ingrese el ID del proveedor: ");
+        var proveedorIndex = this.proveedores.findIndex(function (proveedor) { return proveedor.getIdProv() === idToDelete; });
+        if (proveedorIndex !== -1) {
+            var proveedorToDelete = this.proveedores[proveedorIndex];
+            var confirmation = rls.keyInYNStrict("¿Quiere eliminar al proveedor?");
+            if (confirmation) {
+                this.proveedores.splice(proveedorIndex, 1);
+                fileManager_1.fileManager.appendProveedores(this.proveedores);
+                console.log("Proveedor eliminado con éxito.");
+            }
+            else {
+                console.log("Operación cancelada. Proveedor no eliminado.\n");
+            }
+        }
+        else {
+            console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
+        }
+        rls.keyInPause();
+    };
+    Veterinaria.prototype.menuProveedores = function () {
+        console.log("\n------Proveedores------");
+        while (true) {
+            console.clear();
+            var options = rls.keyInSelect(this.OptionsMenuProveedores);
+            switch (options) {
+                case 0:
+                    this.showProveedores();
+                    break;
+                case 1:
+                    this.addProveedor();
+                    break;
+                case 2:
+                    this.updateProveedor();
+                    break;
+                case 3:
+                    this.deleteProveedor();
+                    break;
+                case 4:
+                    return; // Volver al menú principal
+            }
+        }
     };
     Veterinaria.prototype.menuClientes = function () {
         console.log("\n------Clientes------");

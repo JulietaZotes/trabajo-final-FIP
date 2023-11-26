@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Proveedor = void 0;
-var node_crypto_1 = require("node:crypto");
+var uuid_1 = require("uuid");
 var Proveedor = /** @class */ (function () {
-    function Proveedor(NombreProv, TelefonoProv) {
-        this.IdProv = (0, node_crypto_1.randomUUID)();
+    function Proveedor(NombreProv, TelefonoProv, idProveedor) {
+        this.IdProv = (0, uuid_1.v4)();
         this.proveedores = [];
         this.NombreProv = NombreProv;
         this.TelefonoProv = TelefonoProv;
+        this.IdProv = idProveedor || (0, uuid_1.v4)();
     }
     Proveedor.prototype.setNombreProv = function (NombreProv) {
         this.NombreProv = NombreProv;
