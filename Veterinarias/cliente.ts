@@ -1,23 +1,23 @@
 import { v4 as uuidv4 } from 'uuid';
 
+
 export class Cliente {
-  private idUnico: string;
+  private  IdCliente: string;
   private  NombreCliente: string;
   private  TelCliente: number;
   private  EsVIP: boolean;
   private  Visitas: number;
   clientes = [];
-  
-public constructor(idCliente: string ,NombreCliente : string , TelCliente : number){
-  this.idUnico = idCliente || uuidv4();
+
+public constructor(idCLiente: string, NombreCliente : string , TelCliente : number ){
+  this.IdCliente = idCLiente || uuidv4();
   this.NombreCliente = NombreCliente ;
   this.TelCliente = TelCliente ;
   this.EsVIP = false;
   this.Visitas = 0;
-
 }
 public GetIdUnico(): string {
-  return this.idUnico;
+  return this.IdCliente;
 }
 
 
@@ -53,5 +53,3 @@ public generarVisita(): void {
 }
 }
   
-
-

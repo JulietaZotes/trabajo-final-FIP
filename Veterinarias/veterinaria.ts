@@ -2,29 +2,38 @@ import { Especies } from "./especies";
 import { Cliente } from "./cliente";
 import { fileManager } from "./fileManager";
 import { Proveedor } from "./proveedor";
+import { randomUUID as uid } from "node:crypto";
 import * as rls from "readline-sync";
 import { v4 as uuidv4 } from 'uuid';
+
+
 
 export class Veterinaria {
   private direccion: string;
   private nombre: string;
   private telefono: number;
+  private id: string;
   private especies: Especies[];
   private clientes: Cliente[];
   private proveedores: Proveedor[];
 
-  public constructor(nombre: string, direccion: string, telefono: number) {
+  public constructor(nombre: string, direccion: string, telefono: number, id: string) {
     this.nombre = nombre;
     this.direccion = direccion;
     this.telefono = telefono;
+    this.id = id;
     this.especies = [];
     this.clientes = [];
     this.proveedores = [];
-  }
+  };
 
   public addPaciente(paciente: Especies): void {
     this.especies.push(paciente);
     fileManager.appendPacientes(this.especies);
+  }
+
+  public getId(): string {
+    return this.id;
   }
 
   public getNombre(): string {
@@ -299,5 +308,4 @@ export class Veterinaria {
   
   
 }
-const vete01 = new Veterinaria("vete 1", "av123", 1223444);
-vete01.menuClientes()
+
