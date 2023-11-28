@@ -2,8 +2,17 @@
   {
     "IdCliente": "af76684e-4a79-471f-8334-28ee23871693",
     "clientes": [],
-    "NombreCliente": "Ana Rodriguez",
-    "TelCliente": 123456,
+    "idUnico": "a1fd4109-35b8-42c0-bcd9-e4adc89ecdfa",
+    "NombreCliente": "juan noordermeer",
+    "TelCliente": 2983344406,
+    "EsVIP": false,
+    "Visitas": 0
+  },
+  {
+    "clientes": [],
+    "idUnico": "0cfba4ab-04ee-4f91-9350-e1bd991c5149",
+    "NombreCliente": "hdhgaygdyada",
+    "TelCliente": 283728732,
     "EsVIP": false,
     "Visitas": 0
   }

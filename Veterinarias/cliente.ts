@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
+
+
 export class Cliente {
   private  IdCliente: string;
   private  NombreCliente: string;
@@ -7,16 +10,16 @@ export class Cliente {
   clientes = [];
 
 public constructor(idCLiente: string, NombreCliente : string , TelCliente : number ){
-  this.IdCliente = idCLiente;
+  this.IdCliente = idCLiente || uuidv4();
   this.NombreCliente = NombreCliente ;
   this.TelCliente = TelCliente ;
   this.EsVIP = false;
   this.Visitas = 0;
 }
-public Getid(){
+public GetId(): string {
   return this.IdCliente;
-
 }
+
 
 public SetNombreCliente (NombreCliente : string):void {
   this.NombreCliente = NombreCliente ;
@@ -26,20 +29,27 @@ public GetNombreCliente (){
   return this.NombreCliente;
 }
 
-public SetTelefonoCliente (TelCliente : number){
-  this.TelCliente = TelCliente ;
+public SetTelefonoCliente(TelCliente: number): void {
+  this.TelCliente = TelCliente;
 }
 
-public GetTelefonoCliente () {
+public GetTelefonoCliente(): number {
   return this.TelCliente;
 }
 
-public isVIP(){
-  if (this.EsVIP) {
-    return ("Si");
-  } else {
-    return ("No");
+public isVIP(): boolean {
+  return this.EsVIP;
+}
+public generarVisita(): void {
+  this.Visitas++;
+
+  console.log(`Se generó una nueva visita para ${this.NombreCliente}.`);
+  console.log(`El cliente ${this.NombreCliente} ha tenido ${this.Visitas} visita(s).`);
+
+  if (this.Visitas >= 5 && !this.EsVIP) {
+    this.EsVIP = true;
+    console.log(`¡Felicidades! ${this.NombreCliente} ahora es un cliente VIP.`);
   }
 }
-
-} 
+}
+  

@@ -1,8 +1,11 @@
 {
   "devDependencies": {
     "@types/node": "^20.8.4"
+<<<<<<< HEAD
+=======
   },
   "dependencies": {
     "@types/readline-sync": "^1.4.6"
+>>>>>>> juli
   }
 }
