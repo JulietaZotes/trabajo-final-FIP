@@ -189,7 +189,7 @@ export class fileManager {
                     const telVeterinaria = datosVeterinaria.telefono;
     
                     // Si no existe, crear una nueva instancia de Veterinaria
-                    veterinaria = new Veterinaria(nombreVeterinaria, direccionVeterinaria, telVeterinaria);
+                    veterinaria = new Veterinaria(nombreVeterinaria, direccionVeterinaria, telVeterinaria, idVeterinaria);
                     // Agregar la veterinaria al mapa
                     mapaVeterinarias.set(idVeterinaria, veterinaria); //asocia la clave idVeterinaria con la instancia veterinaria dentro del Map.
                 }

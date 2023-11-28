@@ -44,7 +44,7 @@ class gestorVeterinarias {
             this.especies = data;
         }
         const idToUpdate = rls.question("Ingrese el ID del propietario: ");
-        const paciente = this.especies.find((paciente) => paciente.getDuenio().Getid() === idToUpdate);
+        const paciente = this.especies.find((paciente) => paciente.getDuenio().GetId() === idToUpdate);
         if (paciente) {
             const newRaza = rls.question("Ingrese la raza: ");
             paciente.setRaza(newRaza);
@@ -69,7 +69,7 @@ class gestorVeterinarias {
             } else {
                 readResult.forEach((paciente) => {
                     console.log(`
-          ID propietario: ${paciente.getDuenio().Getid()}
+          ID propietario: ${paciente.getDuenio().GetId()}
           Raza: ${paciente.getRaza()}
           Sexo: ${paciente.getSexo()}
           Edad: ${paciente.getEdad()}
@@ -89,7 +89,7 @@ class gestorVeterinarias {
         }
         const idToDelete = rls.question("Ingrese el ID del propietario: ");
         const pacienteIndex = this.especies.findIndex(
-            (paciente) => paciente.getDuenio().Getid() === idToDelete
+            (paciente) => paciente.getDuenio().GetId() === idToDelete
         );
         if (pacienteIndex !== -1) {
             const pacienteToDelete = this.especies[pacienteIndex];

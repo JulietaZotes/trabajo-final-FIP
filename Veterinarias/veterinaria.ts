@@ -71,7 +71,7 @@ export class Veterinaria {
     const newCliente = new Cliente(idCliente, nombre, telefono);
 
     // Añadir validación para evitar duplicados si es necesario
-    const existingCliente = data.find((cliente) => cliente.GetIdUnico() === newCliente.GetIdUnico());
+    const existingCliente = data.find((cliente) => cliente.GetId() === newCliente.GetId());
 
     if (!existingCliente) {
         data.push(newCliente);
@@ -94,7 +94,7 @@ export class Veterinaria {
     }
   
     const idToUpdate = rls.question("Ingrese el ID del cliente: ");
-    const cliente = this.clientes.find((cliente) => cliente.GetIdUnico() === idToUpdate);
+    const cliente = this.clientes.find((cliente) => cliente.GetId() === idToUpdate);
   
     if (cliente) {
       const newNombre = rls.question("Ingrese el nuevo nombre: ");
@@ -138,7 +138,7 @@ export class Veterinaria {
     }
     const idToDelete = rls.question("Ingrese el ID del cliente: ");
     const clienteIndex = this.clientes.findIndex(
-      (cliente) => cliente.GetIdUnico() === idToDelete
+      (cliente) => cliente.GetId() === idToDelete
     );
     if (clienteIndex !== -1) {
       const clienteToDelete = this.clientes[clienteIndex];

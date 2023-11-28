@@ -16,7 +16,7 @@ public constructor(idCLiente: string, NombreCliente : string , TelCliente : numb
   this.EsVIP = false;
   this.Visitas = 0;
 }
-public GetIdUnico(): string {
+public GetId(): string {
   return this.IdCliente;
 }
 
