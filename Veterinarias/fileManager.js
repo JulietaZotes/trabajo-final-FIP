@@ -6,27 +6,20 @@ var cliente_1 = require("./cliente");
 var proveedor_1 = require("./proveedor");
 var especies_1 = require("./especies");
 var rls = require("readline-sync");
+var veterinaria_1 = require("./veterinaria");
 var fileManager = /** @class */ (function () {
     function fileManager() {
     }
     fileManager.readClientes = function (filePath) {
         try {
-            var data = fs.readFileSync(filePath, 'utf8');
-            // Verificar si el archivo está vacío
-            if (!data.trim()) {
-                console.log("El archivo de clientes está vacío.");
-                return [];
-            }
-            var clientesData = JSON.parse(data);
-            if (!Array.isArray(clientesData)) {
-                console.error('El archivo no contiene un array de clientes.');
-                return [];
-            }
-            var clientes = clientesData.map(function (clienteData) {
-                var idCliente = clienteData.idUnico || '';
-                var nombreCliente = clienteData.NombreCliente || '';
-                var telCliente = parseInt(clienteData.TelCliente);
-                return new cliente_1.Cliente(idCliente, nombreCliente, telCliente);
+            var data = fs.readFileSync("./clientes.txt", "utf8");
+            console.log("Operacion exitosa.");
+            rls.keyInPause("\n");
+            var lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
+            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
+            var clientes = lineas.map(function (linea) {
+                var _a = linea.split(","), idCLiente = _a[0], nombreCliente = _a[1], telCliente = _a[2]; //el método split divide cada linea en un array de dos elementos.
+                return new cliente_1.Cliente(idCLiente, nombreCliente, parseInt(telCliente)); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
             });
             return clientes;
         }
@@ -83,8 +76,9 @@ var fileManager = /** @class */ (function () {
     };
     fileManager.appendPacientes = function (data) {
         try {
-            fs.writeFileSync("./pacientes.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
-            console.log("Operacion exitosa.");
+            var jsonData = JSON.stringify(data, null, 2);
+            fs.writeFileSync("./pacientes.txt", jsonData, { encoding: "utf8" });
+            //console.log("Operacion exitosa.");
             //rls.keyInPause("\n");
         }
         catch (err) {
@@ -94,22 +88,66 @@ var fileManager = /** @class */ (function () {
     fileManager.readPacientes = function () {
         try {
             var data = fs.readFileSync("./pacientes.txt", "utf8");
-            console.log("Operacion exitosa.");
-            //rls.keyInPause("\n");
-            var lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
+            //console.log("Operación exitosa.");
+            var pacientesData = JSON.parse(data);
+            // Crear instancias de Especies y Cliente a partir de los datos cargados
             var clientesMap_1 = new Map();
-            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
-            var pacientes = lineas.map(function (linea) {
-                var _a = linea.split(","), raza = _a[0], sexo = _a[1], edad = _a[2], idCliente = _a[3], nombreCliente = _a[4], telCliente = _a[5]; //el método split divide cada linea en un array de dos elementos.
-                var cliente = clientesMap_1.get(idCliente);
+            var pacientes = pacientesData.map(function (pacienteData) {
+                var idDuenio = pacienteData.duenio.IdCliente;
+                // Verificar si el cliente ya existe en el mapa
+                var cliente = clientesMap_1.get(idDuenio);
                 if (!cliente) {
-                    var cliente_2 = new cliente_1.Cliente(idCliente, nombreCliente, parseInt(telCliente));
-                    //clientesMap.setId(idCliente);
-                    clientesMap_1.set(idCliente, cliente_2);
+                    var nombreDuenio = pacienteData.duenio.NombreCliente;
+                    var telDuenio = pacienteData.duenio.TelCliente;
+                    // Si no existe, crear una nueva instancia de Cliente
+                    cliente = new cliente_1.Cliente(idDuenio, nombreDuenio, telDuenio);
+                    // Agregar el cliente al mapa
+                    clientesMap_1.set(idDuenio, cliente);
                 }
-                return new especies_1.Especies(raza, sexo, edad, cliente); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
+                var raza = pacienteData.raza;
+                var sexo = pacienteData.sexo;
+                var edad = pacienteData.edad;
+                return new especies_1.Especies(raza, sexo, edad, cliente);
             });
             return pacientes;
+        }
+        catch (err) {
+            console.error(err);
+            return [];
+        }
+    };
+    fileManager.appendVeterinarias = function (data) {
+        try {
+            fs.writeFileSync("./veterinarias.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
+            //console.log("Operacion exitosa.");
+            //rls.keyInPause("\n");
+        }
+        catch (err) {
+            console.log("Error inesperado:", err);
+        }
+    };
+    fileManager.readVeterinarias = function () {
+        try {
+            var data = fs.readFileSync("./veterinarias.txt", "utf8");
+            var datosVeterinarias = JSON.parse(data);
+            var mapaVeterinarias_1 = new Map(); //clave: string, valor: instancia de Veterinaria
+            var veterinarias = datosVeterinarias.map(function (datosVeterinaria) {
+                var idVeterinaria = datosVeterinaria.id;
+                // Verificar si la veterinaria ya existe en el mapa
+                var veterinaria = mapaVeterinarias_1.get(idVeterinaria);
+                if (!veterinaria) {
+                    var nombreVeterinaria = datosVeterinaria.nombre;
+                    var direccionVeterinaria = datosVeterinaria.direccion;
+                    var telVeterinaria = datosVeterinaria.telefono;
+                    // Si no existe, crear una nueva instancia de Veterinaria
+                    veterinaria = new veterinaria_1.Veterinaria(nombreVeterinaria, direccionVeterinaria, telVeterinaria, idVeterinaria);
+                    // Agregar la veterinaria al mapa
+                    mapaVeterinarias_1.set(idVeterinaria, veterinaria); //asocia la clave idVeterinaria con la instancia veterinaria dentro del Map.
+                }
+                return veterinaria;
+            });
+            // Devolver el array de veterinarias
+            return veterinarias;
         }
         catch (err) {
             console.error(err);
@@ -119,6 +157,3 @@ var fileManager = /** @class */ (function () {
     return fileManager;
 }());
 exports.fileManager = fileManager;
-function randomUUID() {
-    throw new Error("Function not implemented.");
-}

@@ -3,16 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cliente = void 0;
 var uuid_1 = require("uuid");
 var Cliente = /** @class */ (function () {
-    function Cliente(idCliente, NombreCliente, TelCliente) {
+    function Cliente(idCLiente, NombreCliente, TelCliente) {
         this.clientes = [];
-        this.idUnico = idCliente || (0, uuid_1.v4)();
+        this.IdCliente = idCLiente || (0, uuid_1.v4)();
         this.NombreCliente = NombreCliente;
         this.TelCliente = TelCliente;
         this.EsVIP = false;
         this.Visitas = 0;
     }
-    Cliente.prototype.GetIdUnico = function () {
-        return this.idUnico;
+    Cliente.prototype.GetId = function () {
+        return this.IdCliente;
     };
     Cliente.prototype.SetNombreCliente = function (NombreCliente) {
         this.NombreCliente = NombreCliente;
