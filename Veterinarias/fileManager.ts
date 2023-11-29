@@ -68,8 +68,8 @@ export class fileManager {
     static appendClientes(data: Cliente[]) {
         try {
             fs.writeFileSync("./clientes.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            // console.log("Operacion exitosa.");
+            // rls.keyInPause("\n");
         } catch (err) {
             console.log("Error inesperado:", err);
         }
@@ -113,8 +113,8 @@ export class fileManager {
     static appendProveedores(data: Proveedor[]) {
         try {
             fs.writeFileSync("./proveedores.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            // console.log("Operacion exitosa.");
+            // rls.keyInPause("\n");
         } catch (err) {
             console.log("Error inesperado:", err);
         }

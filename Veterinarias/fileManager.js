@@ -5,7 +5,6 @@ var fs = require("node:fs");
 var cliente_1 = require("./cliente");
 var proveedor_1 = require("./proveedor");
 var especies_1 = require("./especies");
-var rls = require("readline-sync");
 var veterinaria_1 = require("./veterinaria");
 var fileManager = /** @class */ (function () {
     function fileManager() {
@@ -41,8 +40,8 @@ var fileManager = /** @class */ (function () {
     fileManager.appendClientes = function (data) {
         try {
             fs.writeFileSync("./clientes.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            // console.log("Operacion exitosa.");
+            // rls.keyInPause("\n");
         }
         catch (err) {
             console.log("Error inesperado:", err);
@@ -77,8 +76,8 @@ var fileManager = /** @class */ (function () {
     fileManager.appendProveedores = function (data) {
         try {
             fs.writeFileSync("./proveedores.txt", JSON.stringify(data, null, 2), { encoding: "utf8" });
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
+            // console.log("Operacion exitosa.");
+            // rls.keyInPause("\n");
         }
         catch (err) {
             console.log("Error inesperado:", err);
