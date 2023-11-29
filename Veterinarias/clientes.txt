@@ -1,8 +1,7 @@
 [
   {
-    "IdCliente": "af76684e-4a79-471f-8334-28ee23871693",
     "clientes": [],
-    "idUnico": "a1fd4109-35b8-42c0-bcd9-e4adc89ecdfa",
+    "IdCliente": "af76684e-4a79-471f-8334-28ee23871693",
     "NombreCliente": "juan noordermeer",
     "TelCliente": 2983344406,
     "EsVIP": false,
@@ -10,7 +9,7 @@
   },
   {
     "clientes": [],
-    "idUnico": "0cfba4ab-04ee-4f91-9350-e1bd991c5149",
+    "IdCliente": "2548586c-5a7b-44ac-a41a-10e868d583a4",
     "NombreCliente": "hdhgaygdyada",
     "TelCliente": 283728732,
     "EsVIP": false,

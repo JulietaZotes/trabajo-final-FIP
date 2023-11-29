@@ -39,16 +39,25 @@ export class fileManager {
 
     static readClientes(filePath) {
         try {
-            const data = fs.readFileSync("./clientes.txt", "utf8");
-            console.log("Operacion exitosa.");
-            rls.keyInPause("\n");
-            const lineas = data.split("\n"); //dividir la cadena de texto en un array de strings del archivo txt clientes por linea
-            //el método map transforma cada elemento del array lineas en un nuevo objeto Cliente
-            const clientes = lineas.map((linea) => {
-                const [idCLiente, nombreCliente, telCliente] = linea.split(","); //el método split divide cada linea en un array de dos elementos.
-                return new Cliente(idCLiente, nombreCliente, parseInt(telCliente)); //método parseInt para transformar el tipo string del array a tipo number del parámetro del constructor Cliente.
+            const data = fs.readFileSync(filePath, 'utf8');
+            // Verificar si el archivo está vacío
+            if (!data.trim()) {
+                console.log("El archivo de clientes está vacío.");
+                return [];
+            }
+            const clientesData = JSON.parse(data);
+            if (!Array.isArray(clientesData)) {
+                console.error('El archivo no contiene un array de clientes.');
+                return [];
+            }
+            const clientes = clientesData.map((clienteData) => {
+                const idCliente = clienteData.IdCliente || '';
+                const nombreCliente = clienteData.NombreCliente || '';
+                const telCliente = parseInt(clienteData.TelCliente);
+                const esVIP = clienteData.EsVIP || false;
+                const visitas = parseInt(clienteData.Visitas) || 0;
+                return new Cliente(idCliente, nombreCliente, telCliente);
             });
-    
             return clientes;
         } catch (err) {
             console.error('Error al leer el archivo de clientes:', err);
