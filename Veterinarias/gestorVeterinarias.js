@@ -10,8 +10,8 @@ var node_crypto_1 = require("node:crypto");
 var uuid_1 = require("uuid");
 var gestorVeterinarias = /** @class */ (function () {
     function gestorVeterinarias() {
-        this.OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
-        this.OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
+        this.OptionsMenuClientes = ["Lista de clientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
+        this.OptionsMenuProveedores = ["Lista de proveedores", "Anadir nuevo", "Actualizar datos", "Eliminar"];
         this.OptionsMenuPacientes = ["Lista de pacientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
         this.OptionsMenuSucursales = ["Lista de sucursales", "Anadir nueva", "Actualizar datos", "Eliminar"];
         this.OptionsMenuGeneral = ["Sucursales", "Pacientes", "Clientes", "Proveedores"];
@@ -122,6 +122,7 @@ var gestorVeterinarias = /** @class */ (function () {
             }
         }
     };
+    //CRUD Clientes
     gestorVeterinarias.prototype.addCliente = function () {
         var data = fileManager_1.fileManager.readClientes("./clientes.txt") || [];
         console.log("\n------Datos del cliente------\n");
@@ -202,6 +203,30 @@ var gestorVeterinarias = /** @class */ (function () {
         }
         rls.keyInPause();
     };
+    gestorVeterinarias.prototype.menuClientes = function () {
+        console.log("\n------Clientes------");
+        while (true) {
+            console.clear();
+            var options = rls.keyInSelect(this.OptionsMenuClientes);
+            switch (options) {
+                case 0:
+                    this.showClientes();
+                    break;
+                case 1:
+                    this.addCliente();
+                    break;
+                case 2:
+                    this.updateCliente();
+                    break;
+                case 3:
+                    this.deleteCliente();
+                    break;
+                default:
+                    return; // Volver al menú principal
+            }
+        }
+    };
+    //CRUD Proveedores
     gestorVeterinarias.prototype.addProveedor = function () {
         var data = fileManager_1.fileManager.readProveedores("./proveedores.txt") || [];
         console.log("\n------Datos del proveedor------\n");
@@ -300,33 +325,11 @@ var gestorVeterinarias = /** @class */ (function () {
                 case 3:
                     this.deleteProveedor();
                     break;
-                case 4:
+                default:
                     return; // Volver al menú principal
             }
         }
-    };
-    gestorVeterinarias.prototype.menuClientes = function () {
-        console.log("\n------Clientes------");
-        while (true) {
-            console.clear();
-            var options = rls.keyInSelect(this.OptionsMenuClientes);
-            switch (options) {
-                case 0:
-                    this.showClientes();
-                    break;
-                case 1:
-                    this.addCliente();
-                    break;
-                case 2:
-                    this.updateCliente();
-                    break;
-                case 3:
-                    this.deleteCliente();
-                    break;
-                case 4:
-                    return; // Volver al menú principal
-            }
-        }
+        rls.keyInPause();
     };
     //CRUD Sucursales
     gestorVeterinarias.prototype.addVeterinaria = function () {
@@ -439,7 +442,14 @@ var gestorVeterinarias = /** @class */ (function () {
                 case 1:
                     this.menuPacientes();
                     break;
+                case 2:
+                    this.menuClientes();
+                    break;
+                case 3:
+                    this.menuProveedores();
+                    break;
                 default:
+                    console.log("¡Gracias por usar nuestro sistema!");
                     return;
             }
         }
@@ -450,3 +460,6 @@ var gestor = new gestorVeterinarias();
 //gestor.menuPacientes()
 //gestor.addVeterinaria()
 gestor.menuGeneral();
+//gestor.menuClientes()
+//gestor.menuSucursales()
+//gestor.menuProveedores()

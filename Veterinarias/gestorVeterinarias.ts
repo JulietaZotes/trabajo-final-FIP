@@ -20,8 +20,8 @@ class gestorVeterinarias {
     this.sucursales = [];
   }
   
-  OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar"];
-  OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar"];
+  OptionsMenuClientes = ["Lista de clientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
+  OptionsMenuProveedores = ["Lista de proveedores", "Anadir nuevo", "Actualizar datos", "Eliminar"];
   OptionsMenuPacientes = ["Lista de pacientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
   OptionsMenuSucursales = ["Lista de sucursales", "Anadir nueva", "Actualizar datos", "Eliminar"];
   OptionsMenuGeneral = ["Sucursales", "Pacientes", "Clientes", "Proveedores"];
@@ -115,7 +115,6 @@ class gestorVeterinarias {
     rls.keyInPause();
   }
 
-
   public menuPacientes() {
     console.log("\n------Pacientes------");
     while (true) {
@@ -139,6 +138,8 @@ class gestorVeterinarias {
       }
     }
   }
+
+  //CRUD Clientes
   public addCliente(): void {
     const data = fileManager.readClientes("./clientes.txt") || [];
     console.log("\n------Datos del cliente------\n");
@@ -215,7 +216,7 @@ class gestorVeterinarias {
     const idToDelete = rls.question("Ingrese el ID del cliente: ");
     const clienteIndex = this.clientes.findIndex(
       (cliente) => cliente.GetId() === idToDelete
-    );
+      );
     if (clienteIndex !== -1) {
       const clienteToDelete = this.clientes[clienteIndex];
       const confirmation = rls.keyInYNStrict("¿Quiere eliminar al cliente?");
@@ -230,34 +231,60 @@ class gestorVeterinarias {
     } else {
       console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
     }
-
+    
     rls.keyInPause();
   }
+
+  public menuClientes() {
+    console.log("\n------Clientes------");
+    while (true) {
+      console.clear();
+      const options = rls.keyInSelect(this.OptionsMenuClientes);
+      switch (options) {
+        case 0:
+          this.showClientes();
+          break;
+        case 1:
+          this.addCliente();
+          break;
+        case 2:
+          this.updateCliente();
+          break;
+        case 3:
+          this.deleteCliente();
+          break;
+        default:
+          return; // Volver al menú principal
+      }
+    }
+  }
+
+  //CRUD Proveedores
   public addProveedor(): void {
     const data = fileManager.readProveedores("./proveedores.txt") || [];
     console.log("\n------Datos del proveedor------\n");
     const telefono = rls.questionInt("Ingrese el número de teléfono: ");
     const nombre = rls.question("Ingrese el nombre del proveedor: ");
-
+    
     // Generar un nuevo ID automáticamente
     const idProveedor = uuidv4();
     const newProveedor = new Proveedor(nombre, telefono, idProveedor);
 
     // Añadir validación para evitar duplicados si es necesario
     const existingProveedor = data.find((proveedor) => proveedor.getIdProv() === newProveedor.getIdProv());
-
+    
     if (!existingProveedor) {
       data.push(newProveedor);
       fileManager.appendProveedores(data);
-
+      
       console.log("Proveedor añadido con éxito.\n");
     } else {
       console.log("El proveedor ya existe.\n");
     }
-
+    
     rls.keyInPause();
   }
-
+  
   public updateProveedor() {
     const data = fileManager.readProveedores("./proveedores.txt");
     if (data) {
@@ -328,6 +355,7 @@ class gestorVeterinarias {
 
     rls.keyInPause();
   }
+
   public menuProveedores() {
     console.log("\n------Proveedores------");
     while (true) {
@@ -350,34 +378,9 @@ class gestorVeterinarias {
           return; // Volver al menú principal
       }
     }
+    rls.keyInPause();
   }
 
-
-
-
-  public menuClientes() {
-    console.log("\n------Clientes------");
-    while (true) {
-      console.clear();
-      const options = rls.keyInSelect(this.OptionsMenuClientes);
-      switch (options) {
-        case 0:
-          this.showClientes();
-          break;
-        case 1:
-          this.addCliente();
-          break;
-        case 2:
-          this.updateCliente();
-          break;
-        case 3:
-          this.deleteCliente();
-          break;
-        default:
-          return; // Volver al menú principal
-      }
-    }
-  }
   //CRUD Sucursales
   public addVeterinaria() {
     const data = fileManager.readVeterinarias();
@@ -508,6 +511,8 @@ class gestorVeterinarias {
           this.menuProveedores();
           break;
         default:
+          console.log("¡Gracias por usar nuestro sistema!");
+          
           return;
       }
     }
@@ -521,3 +526,6 @@ const gestor = new gestorVeterinarias();
 //gestor.menuPacientes()
 //gestor.addVeterinaria()
 gestor.menuGeneral()
+//gestor.menuClientes()
+//gestor.menuSucursales()
+//gestor.menuProveedores()
