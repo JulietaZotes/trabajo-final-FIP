@@ -157,7 +157,7 @@ class gestorVeterinarias {
       data.push(newCliente);
       fileManager.appendClientes(data);
 
-      console.log("Cliente añadido con éxito.\n");
+      console.log("Cliente añadido con exito.\n");
     } else {
       console.log("El cliente ya existe.\n");
     }
@@ -178,7 +178,7 @@ class gestorVeterinarias {
       const newNombre = rls.question("Ingrese el nuevo nombre: ");
       cliente.SetNombreCliente(newNombre);
 
-      const newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+      const newTelefono = rls.question("Ingrese el nuevo telefono: ");
       cliente.SetTelefonoCliente(Number(newTelefono));
 
       console.log("Datos actualizados exitosamente.\n");
@@ -226,7 +226,7 @@ class gestorVeterinarias {
         fileManager.appendClientes(this.clientes);
         console.log("Cliente eliminado con éxito.");
       } else {
-        console.log("Operación cancelada. Cliente no eliminado.\n");
+        console.log("Operacion cancelada. Cliente no eliminado.\n");
       }
     } else {
       console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");
@@ -263,7 +263,7 @@ class gestorVeterinarias {
   public addProveedor(): void {
     const data = fileManager.readProveedores("./proveedores.txt") || [];
     console.log("\n------Datos del proveedor------\n");
-    const telefono = rls.questionInt("Ingrese el número de teléfono: ");
+    const telefono = rls.questionInt("Ingrese el número de telefono: ");
     const nombre = rls.question("Ingrese el nombre del proveedor: ");
     
     // Generar un nuevo ID automáticamente
@@ -277,7 +277,7 @@ class gestorVeterinarias {
       data.push(newProveedor);
       fileManager.appendProveedores(data);
       
-      console.log("Proveedor añadido con éxito.\n");
+      console.log("Proveedor anadido con exito.\n");
     } else {
       console.log("El proveedor ya existe.\n");
     }
@@ -298,7 +298,7 @@ class gestorVeterinarias {
       const newNombre = rls.question("Ingrese el nuevo nombre: ");
       proveedor.setNombreProv(newNombre);
 
-      const newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+      const newTelefono = rls.question("Ingrese el nuevo telefono: ");
       proveedor.setTelefonoProv(Number(newTelefono));
 
       console.log("Datos actualizados exitosamente.\n");
@@ -347,7 +347,7 @@ class gestorVeterinarias {
         fileManager.appendProveedores(this.proveedores);
         console.log("Proveedor eliminado con éxito.");
       } else {
-        console.log("Operación cancelada. Proveedor no eliminado.\n");
+        console.log("Operacion cancelada. Proveedor no eliminado.\n");
       }
     } else {
       console.log("No hay coincidencias para el ID ingresado. Intente nuevamente.\n");

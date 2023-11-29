@@ -136,7 +136,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (!existingCliente) {
             data.push(newCliente);
             fileManager_1.fileManager.appendClientes(data);
-            console.log("Cliente añadido con éxito.\n");
+            console.log("Cliente añadido con exito.\n");
         }
         else {
             console.log("El cliente ya existe.\n");
@@ -153,7 +153,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (cliente) {
             var newNombre = rls.question("Ingrese el nuevo nombre: ");
             cliente.SetNombreCliente(newNombre);
-            var newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+            var newTelefono = rls.question("Ingrese el nuevo telefono: ");
             cliente.SetTelefonoCliente(Number(newTelefono));
             console.log("Datos actualizados exitosamente.\n");
             fileManager_1.fileManager.appendClientes(this.clientes);
@@ -195,7 +195,7 @@ var gestorVeterinarias = /** @class */ (function () {
                 console.log("Cliente eliminado con éxito.");
             }
             else {
-                console.log("Operación cancelada. Cliente no eliminado.\n");
+                console.log("Operacion cancelada. Cliente no eliminado.\n");
             }
         }
         else {
@@ -230,7 +230,7 @@ var gestorVeterinarias = /** @class */ (function () {
     gestorVeterinarias.prototype.addProveedor = function () {
         var data = fileManager_1.fileManager.readProveedores("./proveedores.txt") || [];
         console.log("\n------Datos del proveedor------\n");
-        var telefono = rls.questionInt("Ingrese el número de teléfono: ");
+        var telefono = rls.questionInt("Ingrese el número de telefono: ");
         var nombre = rls.question("Ingrese el nombre del proveedor: ");
         // Generar un nuevo ID automáticamente
         var idProveedor = (0, uuid_1.v4)();
@@ -240,7 +240,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (!existingProveedor) {
             data.push(newProveedor);
             fileManager_1.fileManager.appendProveedores(data);
-            console.log("Proveedor añadido con éxito.\n");
+            console.log("Proveedor anadido con exito.\n");
         }
         else {
             console.log("El proveedor ya existe.\n");
@@ -257,7 +257,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (proveedor) {
             var newNombre = rls.question("Ingrese el nuevo nombre: ");
             proveedor.setNombreProv(newNombre);
-            var newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+            var newTelefono = rls.question("Ingrese el nuevo telefono: ");
             proveedor.setTelefonoProv(Number(newTelefono));
             console.log("Datos actualizados exitosamente.\n");
             fileManager_1.fileManager.appendProveedores(this.proveedores);
@@ -299,7 +299,7 @@ var gestorVeterinarias = /** @class */ (function () {
                 console.log("Proveedor eliminado con éxito.");
             }
             else {
-                console.log("Operación cancelada. Proveedor no eliminado.\n");
+                console.log("Operacion cancelada. Proveedor no eliminado.\n");
             }
         }
         else {
