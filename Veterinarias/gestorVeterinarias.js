@@ -10,8 +10,8 @@ var node_crypto_1 = require("node:crypto");
 var uuid_1 = require("uuid");
 var gestorVeterinarias = /** @class */ (function () {
     function gestorVeterinarias() {
-        this.OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
         this.OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
+        this.OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
         this.OptionsMenuPacientes = ["Lista de pacientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
         this.OptionsMenuSucursales = ["Lista de sucursales", "Anadir nueva", "Actualizar datos", "Eliminar"];
         this.OptionsMenuGeneral = ["Sucursales", "Pacientes", "Clientes", "Proveedores"];
@@ -438,6 +438,12 @@ var gestorVeterinarias = /** @class */ (function () {
                     break;
                 case 1:
                     this.menuPacientes();
+                    break;
+                case 2:
+                    this.menuClientes();
+                    break;
+                case 3:
+                    this.menuProveedores();
                     break;
                 default:
                     return;
