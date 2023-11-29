@@ -26,5 +26,19 @@
       "EsVIP": false,
       "Visitas": 0
     }
+  },
+  {
+    "pacientes": [],
+    "raza": "chiwuwua",
+    "sexo": "masculino",
+    "edad": "5",
+    "duenio": {
+      "clientes": [],
+      "IdCliente": "51cfb000-fcde-4217-b487-22e7c3b69335",
+      "NombreCliente": "enzo",
+      "TelCliente": 2983344466,
+      "EsVIP": false,
+      "Visitas": 0
+    }
   }
 ]

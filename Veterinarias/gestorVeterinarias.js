@@ -10,8 +10,8 @@ var node_crypto_1 = require("node:crypto");
 var uuid_1 = require("uuid");
 var gestorVeterinarias = /** @class */ (function () {
     function gestorVeterinarias() {
-        this.OptionsMenuClientes = ["Lista de clientes", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
-        this.OptionsMenuProveedores = ["Lista de proveedores", "Añadir nuevo", "Actualizar datos", "Eliminar", "Volver al menú principal"];
+        this.OptionsMenuClientes = ["Lista de clientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
+        this.OptionsMenuProveedores = ["Lista de proveedores", "Anadir nuevo", "Actualizar datos", "Eliminar"];
         this.OptionsMenuPacientes = ["Lista de pacientes", "Anadir nuevo", "Actualizar datos", "Eliminar"];
         this.OptionsMenuSucursales = ["Lista de sucursales", "Anadir nueva", "Actualizar datos", "Eliminar"];
         this.OptionsMenuGeneral = ["Sucursales", "Pacientes", "Clientes", "Proveedores"];
@@ -122,6 +122,7 @@ var gestorVeterinarias = /** @class */ (function () {
             }
         }
     };
+    //CRUD Clientes
     gestorVeterinarias.prototype.addCliente = function () {
         var data = fileManager_1.fileManager.readClientes("./clientes.txt") || [];
         console.log("\n------Datos del cliente------\n");
@@ -135,7 +136,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (!existingCliente) {
             data.push(newCliente);
             fileManager_1.fileManager.appendClientes(data);
-            console.log("Cliente añadido con éxito.\n");
+            console.log("Cliente añadido con exito.\n");
         }
         else {
             console.log("El cliente ya existe.\n");
@@ -152,7 +153,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (cliente) {
             var newNombre = rls.question("Ingrese el nuevo nombre: ");
             cliente.SetNombreCliente(newNombre);
-            var newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+            var newTelefono = rls.question("Ingrese el nuevo telefono: ");
             cliente.SetTelefonoCliente(Number(newTelefono));
             console.log("Datos actualizados exitosamente.\n");
             fileManager_1.fileManager.appendClientes(this.clientes);
@@ -194,7 +195,7 @@ var gestorVeterinarias = /** @class */ (function () {
                 console.log("Cliente eliminado con éxito.");
             }
             else {
-                console.log("Operación cancelada. Cliente no eliminado.\n");
+                console.log("Operacion cancelada. Cliente no eliminado.\n");
             }
         }
         else {
@@ -202,10 +203,34 @@ var gestorVeterinarias = /** @class */ (function () {
         }
         rls.keyInPause();
     };
+    gestorVeterinarias.prototype.menuClientes = function () {
+        console.log("\n------Clientes------");
+        while (true) {
+            console.clear();
+            var options = rls.keyInSelect(this.OptionsMenuClientes);
+            switch (options) {
+                case 0:
+                    this.showClientes();
+                    break;
+                case 1:
+                    this.addCliente();
+                    break;
+                case 2:
+                    this.updateCliente();
+                    break;
+                case 3:
+                    this.deleteCliente();
+                    break;
+                default:
+                    return; // Volver al menú principal
+            }
+        }
+    };
+    //CRUD Proveedores
     gestorVeterinarias.prototype.addProveedor = function () {
         var data = fileManager_1.fileManager.readProveedores("./proveedores.txt") || [];
         console.log("\n------Datos del proveedor------\n");
-        var telefono = rls.questionInt("Ingrese el número de teléfono: ");
+        var telefono = rls.questionInt("Ingrese el número de telefono: ");
         var nombre = rls.question("Ingrese el nombre del proveedor: ");
         // Generar un nuevo ID automáticamente
         var idProveedor = (0, uuid_1.v4)();
@@ -215,7 +240,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (!existingProveedor) {
             data.push(newProveedor);
             fileManager_1.fileManager.appendProveedores(data);
-            console.log("Proveedor añadido con éxito.\n");
+            console.log("Proveedor anadido con exito.\n");
         }
         else {
             console.log("El proveedor ya existe.\n");
@@ -232,7 +257,7 @@ var gestorVeterinarias = /** @class */ (function () {
         if (proveedor) {
             var newNombre = rls.question("Ingrese el nuevo nombre: ");
             proveedor.setNombreProv(newNombre);
-            var newTelefono = rls.question("Ingrese el nuevo teléfono: ");
+            var newTelefono = rls.question("Ingrese el nuevo telefono: ");
             proveedor.setTelefonoProv(Number(newTelefono));
             console.log("Datos actualizados exitosamente.\n");
             fileManager_1.fileManager.appendProveedores(this.proveedores);
@@ -274,7 +299,7 @@ var gestorVeterinarias = /** @class */ (function () {
                 console.log("Proveedor eliminado con éxito.");
             }
             else {
-                console.log("Operación cancelada. Proveedor no eliminado.\n");
+                console.log("Operacion cancelada. Proveedor no eliminado.\n");
             }
         }
         else {
@@ -300,33 +325,11 @@ var gestorVeterinarias = /** @class */ (function () {
                 case 3:
                     this.deleteProveedor();
                     break;
-                case 4:
+                default:
                     return; // Volver al menú principal
             }
         }
-    };
-    gestorVeterinarias.prototype.menuClientes = function () {
-        console.log("\n------Clientes------");
-        while (true) {
-            console.clear();
-            var options = rls.keyInSelect(this.OptionsMenuClientes);
-            switch (options) {
-                case 0:
-                    this.showClientes();
-                    break;
-                case 1:
-                    this.addCliente();
-                    break;
-                case 2:
-                    this.updateCliente();
-                    break;
-                case 3:
-                    this.deleteCliente();
-                    break;
-                case 4:
-                    return; // Volver al menú principal
-            }
-        }
+        rls.keyInPause();
     };
     //CRUD Sucursales
     gestorVeterinarias.prototype.addVeterinaria = function () {
@@ -446,6 +449,7 @@ var gestorVeterinarias = /** @class */ (function () {
                     this.menuProveedores();
                     break;
                 default:
+                    console.log("¡Gracias por usar nuestro sistema!");
                     return;
             }
         }
@@ -456,3 +460,6 @@ var gestor = new gestorVeterinarias();
 //gestor.menuPacientes()
 //gestor.addVeterinaria()
 gestor.menuGeneral();
+//gestor.menuClientes()
+//gestor.menuSucursales()
+//gestor.menuProveedores()
