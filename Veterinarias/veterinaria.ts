@@ -2,7 +2,7 @@ import { Especies } from "./especies";
 import { Cliente } from "./cliente";
 import { fileManager } from "./fileManager";
 import { Proveedor } from "./proveedor";
-import { randomUUID as uid } from "node:crypto";
+import { randomUUID as uuid } from "node:crypto";
 import * as rls from "readline-sync";
 import { v4 as uuidv4 } from 'uuid';
 
